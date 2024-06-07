@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExQuiZ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Loader Animation -->
+    <div id="loader">
+        <div class="pulse">ExQuiZ</div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="container d-none">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">ExQuiZ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Scavenger Hunt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Quiz Challenge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Leaderboard</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Character Section -->
+        <div id="character-section" class="text-center my-4">
+            <div class="character-message">
+                <p id="character-text"></p>
+            </div>
+            <div class="character-box">
+                <img src="character/character1.gif" alt="Character" class="img-fluid">
+            </div>
+        </div>
+
+        <!-- Explore Section -->
+        <div class="row my-4">
+            <div class="col-md-6 text-center">
+                <p>Are you new to Experion?</p>
+                <button class="btn btn-primary">Explore Experion</button>
+            </div>
+            <div class="col-md-6 text-center">
+                <p>Are you an Experionite already knows your workplace?</p>
+                <button class="btn btn-secondary">Experience</button>
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="my-4">
+            <h3>Leaderboard</h3>
+            <!-- Placeholder for leaderboard content -->
+        </div>
+
+        <!-- Rules and Regulations Section -->
+        <div class="my-4">
+            <h3>Rules and Regulations</h3>
+            <!-- Placeholder for rules and regulations content -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
