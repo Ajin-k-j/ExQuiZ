@@ -75,6 +75,7 @@
     max-height: 300px;
 }
 
+
 #experionTitle{
     animation: shadowPulse 3s infinite ease-in-out;
     width: 100%;
@@ -101,23 +102,23 @@
     100% { transform: translateY(0px) } 
 }
 #letterI{
-    width: 8px;
-    height: 30px;
+    width: 7.5px;
+    height: 31px;
     background-color: #212529;
     box-shadow: 2px 2px 5px rgba(187, 187, 187, 1), -2px -2px 5px rgba(255, 255, 255, 1);;
     margin-top: 30px;
     margin: 30px 1px 0px 5px;
-    animation: letterIAni 2s ease;
+    animation: shadowPulseBox 3s infinite ease-in-out;
 }
 .angled-rectangle {
-    width: 9px;
+    width: 8.5px;
     height: 9px;
     background-color: #CF3251;
     position: absolute;
     top: 16px;
     right: 0.5px;
     clip-path: polygon(0% 100%, 100% 70%, 100% 0%, 0% 0%);
-    animation: letterITopAni 2s ease;
+    animation: shadowPulseBox 3s infinite ease-in-out;
 }
 @keyframes letterITopAni{
     0%{ transform: translateX(10px) }
@@ -125,8 +126,13 @@
 }
 #experionIBox{
     position: relative;
-    animation: shadowPulse 3s infinite ease-in-out;
+    
 }
+@keyframes shadowPulseBox{
+    0%{box-shadow: 2px 2px 5px rgb(231, 216, 50), -2px -2px 5px rgb(229, 221, 129);}
+    50% { box-shadow: none;}
+    100% { box-shadow: 2px 2px 5px rgb(193, 198, 45), -2px -2px 5px rgb(229, 221, 129);}
+} 
 
 /* Explore Section */
 .my-4 {
