@@ -1,3 +1,8 @@
+/* root colors */
+:root{
+    --experionRed : #C73659;
+}
+
 /* Loader Animation */
 #loader {
     display: flex;
@@ -113,7 +118,7 @@
 .angled-rectangle {
     width: 8.5px;
     height: 9px;
-    background-color: #CF3251;
+    background-color: var(--experionRed);
     position: absolute;
     top: 16px;
     right: 0.5px;
@@ -143,6 +148,14 @@
 h3 {
     margin-top: 2rem;
     font-weight: bold;
+}
+
+#exploreSection .btn{
+    background-color: var(--experionRed);
+    border: none;
+}
+#exploreSection p{
+    font-weight: 500;
 }
 
 /* Vertical Line */
