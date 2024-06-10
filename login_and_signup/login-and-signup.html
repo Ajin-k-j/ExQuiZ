@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login & Sign up Form</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="login-and-signup.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row main mt-5">
+            <div class="col-md-6 p-5 mx-auto">
+                <div class="flip-card">
+                    <div class="flip-card-inner" id="flip-card-inner">
+                        <!-- login form -->
+                        <div class="flip-card-front">
+                            <h1 class="display-4 text-center">Login</h1>
+                            <form class="d-flex justify-content-center mt-4" action="" id="sign-in-form">
+                                <div class="w-75">
+                                    <div class="form-group">
+                                        <label for="loginEmail">Email</label>
+                                        <input type="email" id="loginEmail" class="form-control" />
+                                    </div>
+                                    <div class="form-group my-4">
+                                        <label for="loginPassword">Password</label>
+                                        <input type="password" id="loginPassword" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-dark" id="login_submit">Login</button>
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <a href="#" class="links" id="registerLink">Create an Account</a>
+                                        <a href="#" class="links">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- signup form -->
+                        <div class="flip-card-back">
+                            <h1 class="display-4 text-center">Sign up</h1>
+                            <form class="d-flex justify-content-center mt-4" action="">
+                                <div class="w-75">
+                                    <div class="form-group">
+                                        <label for="signupEmail">Email</label>
+                                        <input type="email" id="email" class="form-control" />
+                                    </div>
+                                    <div class="form-group my-4">
+                                        <label for="signupPassword">Password</label>
+                                        <input type="password" id="password" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-dark" id="submit"> Register</button>
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <a href="#" class="links" id="loginlink">Already have an Account</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="login-and-signup.js"></script>
+    <script src="signupbackend.js" type="module" defer>
+    </script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="loginbackend.js" type="module" defer ></script>
+
+
+</body>
+</html>
