@@ -1,0 +1,121 @@
+/* root colors */
+:root{
+    --experionRed : #C73659;
+}
+
+/* Character Section */
+#character-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    min-height: 400px;
+}
+
+.character-message {
+    background-color: #fff;
+    border: 2px solid #c3c6c9;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+    top: 100px;
+    min-width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.character-message::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #000306 transparent transparent transparent;
+}
+
+#character-text {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1b1d20;
+}
+.character-box{
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    width: 100%;
+}
+.character-box img {
+    max-height: 300px;
+}
+
+/* experion logo */
+#experionTitle{
+    animation: shadowPulse 3s infinite ease-in-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    right:10px;
+}
+@keyframes shadowPulse{
+    0%{text-shadow: 2px 2px 5px rgb(231, 216, 50), -2px -2px 5px rgb(229, 221, 129);}
+    50% { text-shadow: none;}
+    100% { text-shadow: 2px 2px 5px rgb(193, 198, 45), -2px -2px 5px rgb(229, 221, 129);}
+} 
+    
+
+#experionTitle h1{
+    margin: 0;
+    padding: 0; 
+    font-size: 60px;
+}
+@keyframes letterIAni{
+    0%{ transform: translateY(10px) }
+    100% { transform: translateY(0px) } 
+}
+#letterI{
+    width: 7.5px;
+    height: 31px;
+    background-color: #212529;
+    box-shadow: 2px 2px 5px rgba(187, 187, 187, 1), -2px -2px 5px rgba(255, 255, 255, 1);;
+    margin-top: 30px;
+    margin: 30px 1px 0px 5px;
+    animation: shadowPulseBox 3s infinite ease-in-out;
+}
+.angled-rectangle {
+    width: 8.5px;
+    height: 9px;
+    background-color: var(--experionRed);
+    position: absolute;
+    top: 16px;
+    right: 0.5px;
+    clip-path: polygon(0% 100%, 100% 70%, 100% 0%, 0% 0%);
+    animation: shadowPulseBox 3s infinite ease-in-out;
+}
+@keyframes letterITopAni{
+    0%{ transform: translateX(10px) }
+    100% { transform: translateX(0px) }
+}
+#experionIBox{
+    position: relative;
+    
+}
+@keyframes shadowPulseBox{
+    0%{box-shadow: 2px 2px 5px rgb(231, 216, 50), -2px -2px 5px rgb(229, 221, 129);}
+    50% { box-shadow: none;}
+    100% { box-shadow: 2px 2px 5px rgb(193, 198, 45), -2px -2px 5px rgb(229, 221, 129);}
+} 
+
+/* insturcitons */
+.instruction1 p{
+    display: inline-block;
+}
+
+/* challenge button section */
+.challengePrompt{
+    text-align: center;
+}
