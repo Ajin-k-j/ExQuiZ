@@ -30,7 +30,7 @@ auth.onAuthStateChanged(user => {
                     document.getElementById('profile-username').value = profileData.username;
                     document.getElementById('profile-phone').value = profileData.phone ? profileData.phone : '';
                     // Display profile picture
-                    if (profileData.profilePictureUrl) {
+                    if (profileData.photoURL) {
                         document.getElementById('profile-picture').setAttribute('src', profileData.photoURL);
                     }
                 } else {
