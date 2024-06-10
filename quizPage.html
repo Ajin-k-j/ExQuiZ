@@ -45,19 +45,7 @@
         <div class="character-box"> 
             <img src="character/character1.gif" alt="Character" class="img-fluid">
         </div>
-        <div id="experionTitle" class="d-flex">
-            <div><h1>exper</h1></div>
-            <div id="experionIBox">
-              <div class="angled-rectangle"></div>
-              <div id="letterI"></div>
-            </div>
-            <div><h1>on</h1></div>
-        </div>
-    </div>
-
-    <!-- prompt to access camera -->
-    <div class="container pb-3 camPrompt">
-        <h5>Scan your answers.</h3>
+        <div id="webcam-container"></div>
     </div>
 
     <!-- button to open camera -->
@@ -65,7 +53,20 @@
         <a href="ml.html"><button class="btn btn-secondary">Open Camera</button></a>
     </div>
 
+    <!-- skip questions button -->
+    <div id="skipButton" class="d-flex justify-content-center align-items-center">
+        <button onclick="skipQuestion()" class="btn btn-dark mb-5 mt-2 p-2">Skip</button>
+    </div>
+    
 
+    <!-- for score testing -->
+    <div id="label-container"></div>
+    <div id="score-container" style="display:none">Score: <span id="score">0</span></div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <!-- <script src="script.js"></script> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
