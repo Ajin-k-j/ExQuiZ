@@ -1,16 +1,3 @@
-document.getElementById("registerLink").addEventListener("click", function() {
-    if (window.innerWidth <= 600) {
-        document.getElementById("flip-card-inner").style.transform = 'rotateY(180deg)';
-    }
-});
-
-document.getElementById("loginlink").addEventListener("click", function() {
-    if (window.innerWidth <= 600) {
-        document.getElementById("flip-card-inner").style.transform = 'rotateY(0deg)';
-    }
-});
-
-
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
@@ -25,17 +12,52 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+
+// Check authentication state
+auth.onAuthStateChanged(user => {
+    if (user) {
+        // User is signed in
+        $('#nav-signup').hide();
+        $('#nav-signin').hide();
+        $('#nav-profile').show();
+        $('#nav-logout').show();
+        $('#nav-signed-in-as').show().text("Signed in as " + user.email);
+    } else {
+        // No user is signed in
+        $('#nav-signup').show();
+        $('#nav-signin').show();
+        $('#nav-profile').hide();
+        $('#nav-logout').hide();
+        $('#nav-signed-in-as').hide();
+    }
+});
+
+// Handle Logout
+$('#nav-logout').click(function() {
+    auth.signOut().then(() => {
+        window.location.href = "index.html"; // Redirect to home page after logout
+    }).catch((error) => {
+        console.error("Error during logout:", error);
+    });
+});
+
 // Handle Sign-Up
-$('#submit').click(function(e) {
+$('#sign-up-form').submit(function(e) {
     e.preventDefault(); // Prevent form submission
 
-    const email = $('#email').val().trim();
-    const password = $('#password').val();
+    const email = $('#sign-up-email').val();
+    const password = $('#sign-up-password').val();
+    const reenterPassword = $('#re-enter-password').val();
+
+    if (password !== reenterPassword) {
+        alert("Passwords do not match. Please re-enter.");
+        return; // Don't proceed if passwords don't match
+    }
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // You can redirect or perform additional actions after successful sign-up
             window.location.href = 'create_profile.html';
+            // Redirect or perform additional actions after successful sign-up
         })
         .catch((error) => {
             const errorMessage = getErrorMessage(error); // Get a user-friendly error message
@@ -44,11 +66,11 @@ $('#submit').click(function(e) {
 });
 
 // Handle Sign-In
-$('#login_submit').click(function(e) {
+$('#sign-in-form').submit(function(e) {
     e.preventDefault(); // Prevent form submission
 
-    const email = $('#loginEmail').val().trim();
-    const password = $('#loginPassword').val().trim();
+    const email = $('#sign-in-email').val().trim();
+    const password = $('#sign-in-password').val().trim();
 
     auth.signInWithEmailAndPassword(email, password)
         .then(() => {
@@ -61,6 +83,25 @@ $('#login_submit').click(function(e) {
         });
 });
 
+// Handle "Forgot Password"
+$('#forgot-password').click(function() {
+    const email = $('#sign-in-email').val();
+
+    if (!email) {
+        alert("Please enter your email address to reset your password.");
+        return;
+    }
+
+    auth.sendPasswordResetEmail(email)
+        .then(() => {
+            alert("Password reset email sent. Check your inbox.");
+        })
+        .catch((error) => {
+            console.error("Error during password reset:", error);
+            alert("Could not send password reset email. Please try again.");
+        });
+});
+
 // Function to return a user-friendly error message for Firebase errors
 function getErrorMessage(error) {
     switch (error.code) {
@@ -69,7 +110,7 @@ function getErrorMessage(error) {
         case 'auth/weak-password':
             return "Password should be at least 6 characters.";
         case 'auth/email-already-in-use':
-            return "The email address is already in use, please sign in.";
+            return "The email address is already in use, please signin.";
         case 'auth/user-disabled':
             return "This account has been disabled. Please contact support.";
         case 'auth/user-not-found':
