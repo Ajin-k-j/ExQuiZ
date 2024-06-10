@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 10px;">
+        <div class="container">
+            <a class="navbar-brand" href="#">ExQuiZ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Scavenger Hunt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Quiz Challenge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loader Animation -->
+    <div id="loader">
+        <div class="pulse">ExQuiZ</div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">User Profile</h2>
+                        <div class="text-center mt-4">
+                            <button id="edit-profile-btn" class="btn btn-primary mr-3">Edit Profile</button>
+                            <button id="share-profile-btn" class="btn btn-secondary">Share Profile</button>
+                        </div>
+                        <div id="profile-info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <!-- Custom JavaScript for Firebase and profile retrieval -->
+    <script src="js/profile.js"></script>
+
+    <script>
+        document.getElementById("edit-profile-btn").addEventListener("click", function () {
+            window.location.href = "edit_profile.html";
+        });
+
+        document.getElementById("share-profile-btn").addEventListener("click", function () {
+            // Assuming your game link is stored in a variable called gameLink
+            const gameLink = "https://example.com/game";
+            // Using the Web Share API to share the game link
+            if (navigator.share) {
+                navigator.share({
+                    title: "Check out this game!",
+                    text: "Hi, I am playing this game. Come be part of it!",
+                    url: gameLink
+                }).then(() => {
+                    console.log("Share successful!");
+                }).catch((error) => {
+                    console.error("Error sharing:", error);
+                });
+            } else {
+                // Fallback if the Web Share API is not supported
+                alert("Web Share API is not supported in your browser.");
+            }
+        });
+    </script>
+</body>
+
+</html>
