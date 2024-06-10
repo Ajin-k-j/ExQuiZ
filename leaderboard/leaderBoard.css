@@ -1,0 +1,217 @@
+:root {
+  --bgColour: white;
+  --contentColour: yellow;
+  --expColour: #dc143c;
+  --animDel: 0.2s;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bgColour);
+}
+.top-players img:hover{
+    transform: scale(1.1);
+}
+.top-players h1{
+  margin: 1rem;
+  width: 90%;
+  border-radius: 10px;
+    background-color: var(--expColour);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+}
+h1 i{
+    margin-right: 15px;
+}
+#first{
+  margin: .5rem;
+}
+#first img{
+    width: 8rem;
+    height: 8rem;
+    margin: 1rem;
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+    0% {
+      box-shadow: 0 0 5px 3px var(--expColour); /* Start with no shadow */
+    }
+    50% {
+      box-shadow: 0 0 20px 10px var(--expColour); /* Shadow grows */
+    }
+    100% {
+      box-shadow: 0 0 5px 3px var(--expColour); /* Shadow shrinks */
+    }
+  }
+.trophy{
+    border:1px solid var(--expColour);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 1.5rem;
+    box-shadow:0 0 10px black;
+    font-size: .7rem;
+}
+.trophy:hover{
+  transform: scale(1.05);
+
+}
+#first i{
+    color: gold;
+    margin-right: 10px;
+}
+#secondThird {
+  width: 100vw;
+}
+#second i{
+  color: silver;
+  margin-right: 10px;
+}
+#second img {
+  width: 6rem;
+  height: 6rem;
+  animation: pulse 3s ease-in-out infinite;
+  border-radius: 50%;
+}
+
+#third i{
+  color:#cd7f32;
+  margin-right: 10px;
+}
+#third img {
+  width: 6rem;
+  height: 6rem;
+  animation: pulse 3s ease-in-out infinite;
+  border-radius: 50%;
+}
+.btn1{
+  background-color: #dc143c;
+  opacity: 75%;
+  color: white;
+  padding: .4rem;
+  border-radius: 10px;
+}
+.btn1:hover{
+  background-color: #dc143c;
+  opacity: 100%;
+  transform: scale(1.05);
+}
+
+.leaderboard-container {
+
+  width: 90%;
+  /* max-width: 600px; */
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.leaderboard-container img:hover{
+    transform: scale(3);
+}
+
+.leaderboard-container h1 {
+  background-color: var(--expColour);
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--expColour);
+  opacity: 0.75;
+  color: white;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+tbody tr{
+  opacity: 0;
+  /* animation: slideIn 5s ease-in-out; */
+  animation: fadeIn 1s forwards;
+}
+/* @keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
+/* Define the keyframes for the fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Delay each row's animation */
+tbody tr:nth-child(1) {
+  animation-delay: calc(var(--animDel)*1);
+}
+tbody tr:nth-child(2) {
+  animation-delay: calc(var(--animDel)*2);
+}
+
+tbody tr:nth-child(3) {
+  animation-delay: calc(var(--animDel)*3);
+}
+tbody tr:nth-child(4) {
+  animation-delay: calc(var(--animDel)*4);
+}
+tbody tr:nth-child(5) {
+  animation-delay:calc(var(--animDel)*5);
+}
+tbody tr:nth-child(6) {
+  animation-delay: calc(var(--animDel)*6);
+}
+tbody tr:nth-child(7) {
+  animation-delay: calc(var(--animDel)*7);
+}
+tbody tr:nth-child(8) {
+  animation-delay: calc(var(--animDel)*8);
+}
+tbody tr:nth-child(9) {
+  animation-delay: calc(var(--animDel)*9);
+}
+tbody tr:nth-child(10) {
+  animation-delay: calc(var(--animDel)*10);
+}
+.player-info {
+  display: flex;
+  align-items: center;
+}
+
+.player-info img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+/* .player-info img:hover {
+  transform: scale(5);
+} */
