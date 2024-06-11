@@ -1,0 +1,112 @@
+:root {
+    --primary-color: #dc143c ;
+    --secondary-color:  #f0b3bf ;
+    --tertiary-color: #dc143c ;
+    --form-background: rgba(255, 255, 255, 0.219);
+    --input-border-color: dodgerblue;
+    --label-color: rgb(58, 58, 58);
+    --selected-label-color: rgb(82, 82, 82);
+    --button-background: dodgerblue;
+    --button-text-color: #fff;
+    --button-hover-shadow-color: rgb(61, 61, 61);
+    --body-background-mobile: lightblue;
+}
+
+/* #dc143c */
+
+body {
+    background-color: var(--primary-color);
+    background-image: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%, var(--tertiary-color) 90%);
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.main {
+    perspective: 1000px; /* Ensures the 3D effect */
+}
+
+.flip-card {
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    position: relative;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 25px;
+    background-color: var(--form-background);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flip-card-front {
+    transform: rotateY(0deg);
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--input-border-color);
+    width: 100%;
+}
+
+.form-group {
+    height: 70px;
+}
+
+label {
+    font-size: 18px;
+    color: var(--label-color);
+    transition: 0.3s;
+}
+
+button {
+    border: none;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    font-weight: 500;
+    padding: 10px;
+    width: 100px;
+    border-radius: 30px;
+    transition: 0.55s;
+}
+
+button:hover {
+    box-shadow: 0px 8px 15px 10px var(--button-hover-shadow-color);
+}
+
+.links {
+    font-size: 14px;
+    color: rgb(6, 6, 7);
+}
+
+@media only screen and (max-width: 600px) {
+    .flip-card {
+        display: block;
+    }
+}
