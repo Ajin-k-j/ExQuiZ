@@ -1,3 +1,4 @@
+
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
@@ -44,19 +45,23 @@ function fetchUserProfile(user) {
 
 function startGame(user, profileData) {
     // Typing effect function
-    function typeEffect(element, text, delay = 100, callback) {
+    function typeEffect(element, text, delay = 100) {
         let index = 0;
+        const chatbox = document.getElementsByClassName('character-message')
         function type() {
             if (index < text.length) {
                 element.innerHTML += text.charAt(index);
                 index++;
+                chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
                 setTimeout(type, delay);
-            } else if (callback) {
-                callback();
             }
         }
         type();
     }
+    let initialText = "Click the button below to open your camera and see the first question";
+    let initialTextBox = document.getElementById("character-text");
+    typeEffect(initialTextBox, initialText,20);
+    
 
     const URL = "https://teachablemachine.withgoogle.com/models/K6tcbDhZH/";
 
@@ -64,26 +69,26 @@ function startGame(user, profileData) {
     let score = 0;
     let currentQuestionIndex = 0;
     const questions = [
-        "Had food? -> Red Board",
-        "We are committed to achieve organization's growth -> Autograph",
-        "I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold -> Coffee Machine",
-        "I am the sign that says 'Challenge your limits' with an arrow -> Arrow",
-        "With unity & trust, we conquer the peak. Together we rise, even mountains we seek -> Climbing Up Mountain",
-        "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
-        "Something related to ISRO here in Experion -> Rocket",
-        "Fish, burger & soup -> Wall Food Art",
-        "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
-        "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
-        "Where _ meets _ -> Stew",
-        "After John, I am the first one to know when someone enters the office -> Scanner",
-        "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
-        "Whenever you take a break, I remind you to be creative -> Creative",
-        "The yummiest irachi pidi -> Irachi Pidi",
-        "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
-        "The inseparable duo -> Puttu & Kadala"
+        {question :"Had food?", answer : "Red Board" },
+        {question :"We are committed to achieve organization's growth", answer : "Autograph" },
+        {question :"I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold", answer : "Coffee Machine" },
+        {question :"I am the sign that says 'Challenge your limits' with an arrow", answer : "Arrow" },
+        {question :"With unity & trust, we conquer the peak. Together we rise, even mountains we seek", answer : "Climbing Up Mountain" } 
     ];
 
+    const startQuizButton = document.getElementById('camButton');
+    startQuizButton.addEventListener('click', init);
     async function init() {
+        let loadingCircle = document.getElementById("loadingCircle")
+        let cameraButton = document.getElementById("camButton");
+        let skipButton = document.getElementById("skipButton");
+        let scoreDiv = document.getElementById('score-container');
+        let textBox = document.getElementById('character-message');
+        cameraButton.classList.add("makeDisapear");
+        loadingCircle.classList.remove("makeDisapear")
+        
+        
+
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
 
@@ -94,6 +99,13 @@ function startGame(user, profileData) {
         webcam = new tmImage.Webcam(200, 200, flip);
         await webcam.setup();
         await webcam.play();
+        if(webcam.play()){
+            // textBox.classList.remove('makeDisapear')
+            // document.getElementById('experionTitle').classList.add("makeDisapear")
+            loadingCircle.classList.add("makeDisapear")
+            scoreDiv.classList.remove("makeDisapear");
+            skipButton.querySelector('button').classList.remove("makeDisapear");
+        }
         window.requestAnimationFrame(loop);
 
         document.getElementById("webcam-container").appendChild(webcam.canvas);
@@ -101,8 +113,6 @@ function startGame(user, profileData) {
         for (let i = 0; i < maxPredictions; i++) {
             labelContainer.appendChild(document.createElement("div"));
         }
-
-        document.getElementById("loading-text").style.display = "none";
         showQuestion();
     }
 
@@ -115,12 +125,12 @@ function startGame(user, profileData) {
     function showQuestion() {
         if (currentQuestionIndex < questions.length) {
             const characterTextElement = document.getElementById("character-text");
-            characterTextElement.innerHTML = "";
-            const fullMessage = questions[currentQuestionIndex].split(" -> ")[0];
-            typeEffect(characterTextElement, fullMessage, 50);
-        } else {
-            document.getElementById("score-section").style.display = "block";
-            document.getElementById("score").textContent = score;
+            characterTextElement.innerHTML = " ";
+            characterTextElement.style.color = "black";
+            fullMessage = questions[currentQuestionIndex].question;
+            typeEffect(characterTextElement, fullMessage, 10);
+        } else if (currentQuestionIndex >= questions.length){
+            // do something
             stopGame();
         }
     }
@@ -130,24 +140,40 @@ function startGame(user, profileData) {
         let correct = false;
 
         for (let i = 0; i < maxPredictions; i++) {
-            if (prediction[i].className === questions[currentQuestionIndex].split(" -> ")[1] && prediction[i].probability > 0.865) {
-                labelContainer.childNodes[i].innerHTML = "Probability: " + prediction[i].probability.toFixed(2);
+            if (prediction[i].className === questions[currentQuestionIndex].answer && prediction[i].probability > 0.865) {
                 correct = true;
             } else {
-                labelContainer.childNodes[i].innerHTML = "";
             }
         }
 
         if (correct) {
+            let newMessage = "Correct!! Go to next question"
+            let skipButton = document.getElementById("skipButton")
+            let characterTextElement = document.getElementById('character-text');
+            skipButton.classList.add("makeDisapear");
+            characterTextElement.innerHTML = "";
+            characterTextElement.style.color = "green";
+            typeEffect(characterTextElement, newMessage, 50);
+            
             score += 1;
+            document.getElementById("modalScore").textContent = score;
+            document.getElementById("modalScoreEachQues").textContent = score;
+            showModalCurrScore();
+
             currentQuestionIndex += 1;
-            showQuestion();
         }
     }
 
+
     function skipQuestion() {
-        currentQuestionIndex += 1;
-        showQuestion();
+        if(document.getElementById('character-text').innerHTML == "Correct!! Go to next question"){
+            showQuestion();
+        }
+        else{
+            currentQuestionIndex += 1;
+            showQuestion();
+        }
+        
     }
 
     // Expose skipQuestion to global scope
@@ -155,11 +181,19 @@ function startGame(user, profileData) {
 
     function stopGame() {
         webcam.stop();
-        document.getElementById("camera-section").style.display = "none";
+        document.getElementById("webcam-container").style.display = "none";
         document.getElementById("skipButton").style.display = "none";
         document.getElementById("please-wait").style.display = "block"; // Show please wait message
         saveScore(user.uid, profileData.name, score);
     }
+    // modal
+    function showModal() {
+        $('#myModal').modal('show');
+    }
+    function showModalCurrScore() {
+        $('#currentScoreModal').modal('show');
+    }
+
 
     function saveScore(uid, name, newScore) {
         const scoresRef = firestore.collection('HuntGame').doc(uid);
@@ -172,7 +206,8 @@ function startGame(user, profileData) {
                         updateScore(scoresRef, uid, name, newScore);
                     } else {
                         console.log("New score is not higher than the previous score. No update made.");
-                        window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
+                        showModal();
+                        // window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
                     }
                 } else {
                     updateScore(scoresRef, uid, name, newScore);
@@ -184,6 +219,10 @@ function startGame(user, profileData) {
                 alert("Error saving score. Please try again.");
             });
     }
+
+    document.getElementById("scoreCardPage").addEventListener('click',()=>{
+        window.location.href = 'scoreCardHuntGame.html';
+    })
 
     function updateScore(scoresRef, uid, name, score) {
         scoresRef.set({
@@ -200,6 +239,40 @@ function startGame(user, profileData) {
             alert("Error saving score. Please try again.");
         });
     }
-
-    init();
 }
+
+// Typing effect function
+// function typeEffect(element, text, delay = 100) {
+//     let index = 0;
+//     const chatbox = document.getElementsByClassName('character-message')
+//     function type() {
+//         if (index < text.length) {
+//             element.innerHTML += text.charAt(index);
+//             index++;
+//             chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
+//             setTimeout(type, delay);
+//         }
+//     }
+//     type();
+// }
+
+
+// "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
+//     "Something related to ISRO here in Experion -> Rocket",
+//     "Fish, burger & soup -> Wall Food Art",
+//     "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
+//     "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
+//     "Where _ meets _ -> Stew",
+//     "After John, I am the first one to know when someone enters the office -> Scanner",
+//     "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
+//     "Whenever you take a break, I remind you to be creative -> Creative",
+//     "The yummiest irachi pidi -> Irachi Pidi",
+//     "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
+//     "The inseparable duo -> Puttu & Kadala"
+
+
+
+
+
+
+// init();
