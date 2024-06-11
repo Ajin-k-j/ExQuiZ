@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="css/scoreCard.css" />
 </head>
 <body>
+    <div class="container mainDiv">
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">ExQuiZ</a>
@@ -60,10 +61,15 @@
         <div class="scorecard-heading">Congratulations</div>
         <img class="player-image" id="player-image" src="" alt="Player Image">
         <div class="player-name" id="player-name">Player Name</div>
-        <div class="score"><i class="fa-solid fa-star"></i> Score : <span id="player-score">0</span></div>
+        <div class="score"><i class="fa-solid fa-star"></i> Highest Score : <span id="player-score">0</span></div>
         <div class="rank"><i class="fa-solid fa-trophy"></i> Rank : <span id="player-rank">0</span></div>
-        <button type="button" class="btn2">Share</button>
+        <div class="btnContainer d-flex justify-content-evenly gap-2">
+            <div><a href="index.html"><button type="button" class=" btn2">Home</button></a></div>
+            <div><a href="feedback.html"><button type="button" class=" btn2">Feedback</button></a></div>
+            <div><button id="shareButton" type="button" class="btn2">Share</button></div>
+        </div>
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
