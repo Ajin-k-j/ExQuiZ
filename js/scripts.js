@@ -110,30 +110,19 @@ function displayLeaderboard() {
 
     leaderboardRef.get()
         .then(querySnapshot => {
-            const leaderboardContainer = document.getElementsByTagName("tbody")[0];
+            const leaderboardContainer = document.getElementById('leaderboard');
             leaderboardContainer.innerHTML = ''; // Clear previous content
-            let rank=1;
+
             querySnapshot.forEach(doc => {
                 const scoreData = doc.data();
                 const name = scoreData.name;
                 const score = scoreData.score;
 
-                const row = leaderboardContainer.insertRow();
-                const rankCell = row.insertCell(0);
-                const playerCell = row.insertCell(1);
-                const scoreCell = row.insertCell(2);
-
-                rankCell.textContent = rank;
-                playerCell.textContent = name;
-                scoreCell.textContent = score;
-                rank++;
-
-
-                // // Create list item to display name and score
-                // const listItem = document.createElement('li');
-                // listItem.classList.add('list-group-item');
-                // listItem.textContent = `${name}: ${score}`;
-                // leaderboardContainer.appendChild(listItem);
+                // Create list item to display name and score
+                const listItem = document.createElement('li');
+                listItem.classList.add('list-group-item');
+                listItem.textContent = `${name}: ${score}`;
+                leaderboardContainer.appendChild(listItem);
             });
         })
         .catch(error => {

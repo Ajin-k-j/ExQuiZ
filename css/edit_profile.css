@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-@import url(' href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet"');
+
 * {
     margin: 0;
     padding: 0;
@@ -24,22 +24,22 @@ html {
     );
     display: flex;
     justify-content: center;
-    flex-direction: column;
+  
+    gap: 10px;
     align-items: center;
     min-height: 100vh;
 }
-p{
-  font-family: 'Oswald', sans-serif;
-  font-size:20px;
-}
 
 .card {
-  margin-top: 100px;
     position: relative;
-    width: 300px;
-    height: 500px;
+    width: 250px;
+    height: 200px;
     background: white;
     transition: 0.5s;
+    padding-top: 10px; 
+}
+.card:hover {
+    height: 450px;
 }
 .card:hover .profile-picture {
     top: 100px;

@@ -94,16 +94,3 @@ document.getElementById('logout').addEventListener('click', () => {
         console.error("Error signing out:", error);
     });
 });
-
-document.getElementById('shareButton').addEventListener('click', async () => {
-    try {
-      await navigator.share({
-        title: 'ExQuiz',
-        text: 'Hello guys, I played this game. Just have a look',
-        url: 'https://ajin-k-j.github.io/ExQuiZ/'
-      });
-      console.log('Content shared successfully');
-    } catch (error) {
-      console.error('Error sharing content:', error);
-    }
-  });

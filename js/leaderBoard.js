@@ -21,8 +21,8 @@ function displayLeaderboard() {
 
     leaderboardRef.get()
         .then(querySnapshot => {
-            const leaderboard = document.querySelector('tbody');
-            leaderboard.innerHTML = ''; // Clear previous content
+            const leaderboardContainer = document.querySelector('#leaderboard tbody');
+            leaderboardContainer.innerHTML = ''; // Clear previous content
             let rank = 1;
 
             querySnapshot.forEach(doc => {
