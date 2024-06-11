@@ -241,38 +241,3 @@ function startGame(user, profileData) {
     }
 }
 
-// Typing effect function
-// function typeEffect(element, text, delay = 100) {
-//     let index = 0;
-//     const chatbox = document.getElementsByClassName('character-message')
-//     function type() {
-//         if (index < text.length) {
-//             element.innerHTML += text.charAt(index);
-//             index++;
-//             chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
-//             setTimeout(type, delay);
-//         }
-//     }
-//     type();
-// }
-
-
-// "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
-//     "Something related to ISRO here in Experion -> Rocket",
-//     "Fish, burger & soup -> Wall Food Art",
-//     "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
-//     "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
-//     "Where _ meets _ -> Stew",
-//     "After John, I am the first one to know when someone enters the office -> Scanner",
-//     "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
-//     "Whenever you take a break, I remind you to be creative -> Creative",
-//     "The yummiest irachi pidi -> Irachi Pidi",
-//     "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
-//     "The inseparable duo -> Puttu & Kadala"
-
-
-
-
-
-
-// init();

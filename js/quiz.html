@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Questions</title>
+</head>
+<body>
+    <h1>Quiz Questions</h1>
+    <ul id="quizQuestionsList"></ul>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js" type="module"></script>
+
+    <script type="module">
+        // Firebase configuration
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js';
+        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js';
+
+        // Firebase configuration
+const firebaseConfig = {
+    // Your Firebase config here
+    apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
+    authDomain: "exquiz-f88c8.firebaseapp.com",
+    projectId: "exquiz-f88c8",
+    storageBucket: "exquiz-f88c8.appspot.com",
+    messagingSenderId: "429866461086",
+    appId: "1:429866461086:web:5f5a658cf19b4670c8188f",
+    measurementId: "G-S3X80N0DK6"
+};
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const firestore = getFirestore(app);
+
+        // Reference to the 'quiz-questions' collection
+        const quizQuestionsRef = collection(firestore, 'quiz-questions');
+
+        // Function to display quiz questions
+        async function displayQuizQuestions() {
+            const quizQuestionsList = document.getElementById('quizQuestionsList');
+            const querySnapshot = await getDocs(quizQuestionsRef);
+            querySnapshot.forEach((doc) => {
+                // Create list item for each document
+                const listItem = document.createElement('li');
+                listItem.textContent = doc.data().question; // Assuming 'question' is a field in your document
+                quizQuestionsList.appendChild(listItem);
+            });
+        }
+
+        // Call the function to display quiz questions
+        displayQuizQuestions();
+    </script>
+</body>
+</html>
