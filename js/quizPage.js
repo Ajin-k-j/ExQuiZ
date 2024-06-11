@@ -1,5 +1,64 @@
 // window.location.pathname.split('/').pop() === 'quizPage.html') {
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
+    authDomain: "exquiz-f88c8.firebaseapp.com",
+    projectId: "exquiz-f88c8",
+    storageBucket: "exquiz-f88c8.appspot.com",
+    messagingSenderId: "429866461086",
+    appId: "1:429866461086:web:5f5a658cf19b4670c8188f",
+    measurementId: "G-S3X80N0DK6"
+};
 
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+
+window.onload = function () {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            fetchUserProfile(user);
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').classList.remove('d-none');
+        } else {
+            window.location.href = 'signin.html'; // Redirect to sign-in page
+        }
+    });
+};
+
+// Function to fetch and display user profile
+function fetchUserProfile(user) {
+    const profileRef = firestore.collection('profiles').doc(user.uid);
+    profileRef.get()
+        .then(doc => {
+            if (doc.exists) {
+                const profileData = doc.data();
+                startGame(user, profileData);
+            } else {
+                console.error("No such document!");
+            }
+        })
+        .catch(error => {
+            console.error("Error getting document:", error);
+        });
+}
+
+function startGame(user, profileData) {
+    // Typing effect function
+    function typeEffect(element, text, delay = 100, callback) {
+        let index = 0;
+        function type() {
+            if (index < text.length) {
+                element.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(type, delay);
+            } else if (callback) {
+                callback();
+            }
+        }
+        type();
+    }
+}
 
 // Typing effect function
 function typeEffect(element, text, delay = 100) {
@@ -87,7 +146,12 @@ async function init() {
     for (let i = 0; i < maxPredictions; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
-    showQuestion();
+    let isLastQues =  showQuestion();
+    if(isLastQues){
+        webcam.stop();
+        let camContainer = document.getElementById('webcam-container');
+        camContainer.classList.add("makeDisapear");
+    }
 }
 
 async function loop() {
@@ -104,11 +168,17 @@ function showQuestion() {
         // const characterTextElement = document.getElementById("character-text");
         fullMessage = questions[currentQuestionIndex].split(" -> ")[0];
         typeEffect(characterTextElement, fullMessage, 10);
-
+        return false;
         // questionContainer.innerHTML = questions[currentQuestionIndex].split(" -> ")[0];
     } else {
         document.getElementById("score-container").style.display = "block";
         document.getElementById("score").textContent = score;
+        return true;
+        // webcam.stop();
+        // document.getElementById("webcam-container").classList.add("makeDisapear");
+        // document.getElementById("skipButton").classList.add("makeDisapear");
+        // document.getElementById("please-wait").style.display = "block"; // Show please wait message
+        // saveScore(user.uid, profileData.name, score);
     }
 }
 
@@ -136,5 +206,57 @@ function skipQuestion() {
     currentQuestionIndex += 1;
     showQuestion();
 }
+
+// Expose skipQuestion to global scope
+window.skipQuestion = skipQuestion;
+
+function stopGame() {
+    webcam.stop();
+    document.getElementById("webcam-container").style.display = "none";
+    document.getElementById("skipButton").style.display = "none";
+    document.getElementById("please-wait").style.display = "block"; // Show please wait message
+    saveScore(user.uid, profileData.name, score);
+}
+
+function saveScore(uid, name, newScore) {
+    const scoresRef = firestore.collection('HuntGame').doc(uid);
+
+    scoresRef.get()
+        .then(doc => {
+            if (doc.exists) {
+                const previousScore = doc.data().score;
+                if (newScore > previousScore) {
+                    updateScore(scoresRef, uid, name, newScore);
+                } else {
+                    console.log("New score is not higher than the previous score. No update made.");
+                    window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
+                }
+            } else {
+                updateScore(scoresRef, uid, name, newScore);
+            }
+        })
+        .catch(error => {
+            console.error("Error getting document:", error);
+            document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
+            alert("Error saving score. Please try again.");
+        });
+}
+
+function updateScore(scoresRef, uid, name, score) {
+    scoresRef.set({
+        uid: uid,
+        name: name,
+        score: score,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+        console.log("Score saved successfully!");
+        window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
+    }).catch(error => {
+        console.error("Error saving score:", error);
+        document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
+        alert("Error saving score. Please try again.");
+    });
+}
+
 
 // init();
