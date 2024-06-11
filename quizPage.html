@@ -45,17 +45,22 @@
         <div class="character-box"> 
             <img src="character/character1.gif" alt="Character" class="img-fluid">
         </div>
-        <div id="webcam-container"></div>
+        <div id="webcam-container">
+            <div class="spinner-border makeDisapear" id="loadingCircle" role="status">
+                <!-- <span class="visually-hidden">Loading...</span> -->
+            </div>
+        </div>
     </div>
 
     <!-- button to open camera -->
     <div class="text-center">
-        <a href="ml.html"><button class="btn btn-secondary">Open Camera</button></a>
+        <button class="btn btn-secondary" onclick="init()" id="camButton">Open Camera</button>
+        <!-- <a href="ml.html"><button class="btn btn-secondary">Open Camera</button></a> -->
     </div>
 
     <!-- skip questions button -->
     <div id="skipButton" class="d-flex justify-content-center align-items-center">
-        <button onclick="skipQuestion()" class="btn btn-dark mb-5 mt-2 p-2">Skip</button>
+        <button onclick="skipQuestion()" class="btn btn-dark mb-5 mt-2 p-2 makeDisapear">Skip Question</button>
     </div>
     
 

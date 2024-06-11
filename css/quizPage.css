@@ -60,12 +60,12 @@
 }
 
 /* make camera disapear */
-/* .makeDisapear{
+.makeDisapear{
     display: none;
-} */
+}
 
 #skipButton button{
-    height: 40px;
+    height: 40px;   
 }
 
 /* camera section */

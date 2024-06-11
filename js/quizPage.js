@@ -1,66 +1,6 @@
 // window.location.pathname.split('/').pop() === 'quizPage.html') {
 
 
-// const questions = [
-//     {
-//         question : "Had food?",
-//         answer : "Red board"
-//     },
-//     {
-//         question : "We are committed to achieve organisation's growth.",
-//         answer : "Autograph"
-//     },
-//     {
-//         question : "I hum in the break room, a daily delight giving employees a much needed respile by turning beans into liquid gold.",
-//         answer : "Coffee machine"
-//     },
-//     {
-//         question : "I am the sign that says 'challenge your limits' with an arrow.",
-//         answer : "Arrow"
-//     },
-//     {
-//         question : "I am a sign that depicts with unity & trust, we conquer the peak, together we use even mountains we seek.",
-//         answer : "Climbing up mountain"
-//     },
-//     {
-//         question : "Where have you seen the symbol hope (S) from DC comics here in Experion.",
-//         answer : "Superman"
-//     },
-//     {
-//         question : "Something related to ISRO, here in Experion.",
-//         answer : "Rocket"
-//     },
-//     {
-//         question : "Fish, burger & soup.",
-//         answer : "Wall food art"
-//     },
-//     {
-//         question : "Puttu : Beaf :: Fish curry : ?",
-//         answer : "Fish curry"
-//     }
-// ]
-
-// const questions = [
-//     "Had food? -> Red Board",
-//     "We are committed to achieve organization's growth -> Autograph",
-//     "I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold -> Coffee Machine",
-//     "I am the sign that says 'Challenge your limits' with an arrow -> Arrow",
-//     "With unity & trust, we conquer the peak. Together we rise, even mountains we seek -> Climbing Up Mountain",
-//     "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
-//     "Something related to ISRO here in Experion -> Rocket",
-//     "Fish, burger & soup -> Wall Food Art",
-//     "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
-//     "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
-//     "Where _ meets _ -> Stew",
-//     "After John, I am the first one to know when someone enters the office -> Scanner",
-//     "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
-//     "Whenever you take a break, I remind you to be creative -> Creative",
-//     "The yummiest irachi pidi -> Irachi Pidi",
-//     "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
-//     "The inseparable duo -> Puttu & Kadala"
-// ];
-
-
 // Typing effect function
 function typeEffect(element, text, delay = 100) {
     let index = 0;
@@ -117,6 +57,15 @@ const questions = [
 ];
 
 async function init() {
+    // let isCamOn = false;
+    let loadingCircle = document.getElementById("loadingCircle")
+    let cameraButton = document.getElementById("camButton");
+    let skipButton = document.getElementById("skipButton");
+    cameraButton.classList.add("makeDisapear");
+    loadingCircle.classList.remove("makeDisapear")
+
+    
+
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
@@ -127,6 +76,10 @@ async function init() {
     webcam = new tmImage.Webcam(200, 200, flip);
     await webcam.setup();
     await webcam.play();
+    if(webcam.play()){
+        loadingCircle.classList.add("makeDisapear")
+        skipButton.querySelector('button').classList.remove("makeDisapear");
+    }
     window.requestAnimationFrame(loop);
 
     document.getElementById("webcam-container").appendChild(webcam.canvas);
@@ -150,7 +103,7 @@ function showQuestion() {
         // const questionContainer = document.getElementById("question-container");
         // const characterTextElement = document.getElementById("character-text");
         fullMessage = questions[currentQuestionIndex].split(" -> ")[0];
-        typeEffect(characterTextElement, fullMessage, 50);
+        typeEffect(characterTextElement, fullMessage, 10);
 
         // questionContainer.innerHTML = questions[currentQuestionIndex].split(" -> ")[0];
     } else {
@@ -184,4 +137,4 @@ function skipQuestion() {
     showQuestion();
 }
 
-init();
+// init();
