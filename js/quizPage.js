@@ -1,6 +1,52 @@
 // window.location.pathname.split('/').pop() === 'quizPage.html') {
+
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+// import {
+//   getFirestore,
+//   collection,
+//   getDocs,
+// } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
+ 
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDB0NHFMU24gGMPci-I6WkTlcfn3vy9CQY",
+//   authDomain: "fir-may-e7ff3.firebaseapp.com",
+//   projectId: "fir-may-e7ff3",
+//   storageBucket: "fir-may-e7ff3.appspot.com",
+//   messagingSenderId: "816370027290",
+//   appId: "1:816370027290:web:bd4fcb6741e6d0e2407aa3"
+// };
+ 
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
+ 
+// async function getData() {
+//   const qnansContainer = document.getElementById("qnans");
+//   const querySnapshot = await getDocs(collection(db, "quiz-questions"));
+//   if (!querySnapshot.empty) {
+//     return querySnapshot;
+//     // let qnansHTML = "";
+//     // querySnapshot.forEach((doc) => {
+//     //   const data = doc.data();
+//     //   console.log("Document data:", data);
+//     //   // Append each document's data to the leaderboard HTML
+//     // //   qnansHTML += `<div>Question: ${data.question}, Answer: ${data.answer}</div>`;
+//     // });
+//     // qnansContainer.innerHTML = qnansHTML;
+//   } else {
+//     console.log("No documents found!");
+//     qnansContainer.innerHTML = "No documents found!";
+//   }
+// }
+ 
+// const questions = getData();
+// console.log(questions);
+
+
+
 // Firebase configuration
-const firebaseConfig = {
+const firebaseConfigScore = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
     authDomain: "exquiz-f88c8.firebaseapp.com",
     projectId: "exquiz-f88c8",
@@ -11,7 +57,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfigScore);
 const firestore = firebase.firestore();
 
 window.onload = function () {
@@ -45,218 +91,228 @@ function fetchUserProfile(user) {
 
 function startGame(user, profileData) {
     // Typing effect function
-    function typeEffect(element, text, delay = 100, callback) {
+    function typeEffect(element, text, delay = 100) {
         let index = 0;
+        const chatbox = document.getElementsByClassName('character-message')
         function type() {
             if (index < text.length) {
                 element.innerHTML += text.charAt(index);
                 index++;
+                chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
                 setTimeout(type, delay);
-            } else if (callback) {
-                callback();
             }
         }
         type();
     }
-}
-
-// Typing effect function
-function typeEffect(element, text, delay = 100) {
-    let index = 0;
-    const chatbox = document.getElementsByClassName('character-message')
-    function type() {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index);
-            index++;
-            chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
-            setTimeout(type, delay);
-        }
-    }
-    type();
-}
-
-// Dynamic content loading for character message
-// document.addEventListener('DOMContentLoaded', function () {
-//     let questionCount = 3;      //change the question using this variable
-//     printQuestions(questions,questionCount);
-// });
-
-// function printQuestions(questions,questionCount){
-//     let fullMessage = questions[questionCount].question;
-//     let characterTextElement = document.getElementById('character-text');
-//     typeEffect(characterTextElement, fullMessage, 50);  // Adjust the delay for typing speed
-// }
-
-
-
-
-const URL = "https://teachablemachine.withgoogle.com/models/K6tcbDhZH/";
-
-let model, webcam, labelContainer, maxPredictions;
-let score = 0;
-let currentQuestionIndex = 0;
-const questions = [
-    "Had food? -> Red Board",
-    "We are committed to achieve organization's growth -> Autograph",
-    "I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold -> Coffee Machine",
-    "I am the sign that says 'Challenge your limits' with an arrow -> Arrow",
-    "With unity & trust, we conquer the peak. Together we rise, even mountains we seek -> Climbing Up Mountain",
-    "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
-    "Something related to ISRO here in Experion -> Rocket",
-    "Fish, burger & soup -> Wall Food Art",
-    "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
-    "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
-    "Where _ meets _ -> Stew",
-    "After John, I am the first one to know when someone enters the office -> Scanner",
-    "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
-    "Whenever you take a break, I remind you to be creative -> Creative",
-    "The yummiest irachi pidi -> Irachi Pidi",
-    "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
-    "The inseparable duo -> Puttu & Kadala"
-];
-
-async function init() {
-    // let isCamOn = false;
-    let loadingCircle = document.getElementById("loadingCircle")
-    let cameraButton = document.getElementById("camButton");
-    let skipButton = document.getElementById("skipButton");
-    cameraButton.classList.add("makeDisapear");
-    loadingCircle.classList.remove("makeDisapear")
-
+    let initialText = "Click the button below to open your camera and see the first question";
+    let initialTextBox = document.getElementById("character-text");
+    typeEffect(initialTextBox, initialText,20);
     
 
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+    const URL = "https://teachablemachine.withgoogle.com/models/K6tcbDhZH/";
 
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+    let model, webcam, labelContainer, maxPredictions;
+    let score = 0;
+    let currentQuestionIndex = 0;
+    const questions = [
+        {question :"Had food?", answer : "Red Board" },
+        {question :"We are committed to achieve organization's growth", answer : "Autograph" },
+        {question :"I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold", answer : "Coffee Machine" },
+        {question :"I am the sign that says 'Challenge your limits' with an arrow", answer : "Arrow" },
+        {question :"With unity & trust, we conquer the peak. Together we rise, even mountains we seek", answer : "Climbing Up Mountain" } 
+    ];
 
-    const flip = true;
-    webcam = new tmImage.Webcam(200, 200, flip);
-    await webcam.setup();
-    await webcam.play();
-    if(webcam.play()){
-        loadingCircle.classList.add("makeDisapear")
-        skipButton.querySelector('button').classList.remove("makeDisapear");
+    const startQuizButton = document.getElementById('camButton');
+    startQuizButton.addEventListener('click', init);
+    async function init() {
+        let loadingCircle = document.getElementById("loadingCircle")
+        let cameraButton = document.getElementById("camButton");
+        let skipButton = document.getElementById("skipButton");
+        let scoreDiv = document.getElementById('score-container');
+        let textBox = document.getElementById('character-message');
+        cameraButton.classList.add("makeDisapear");
+        loadingCircle.classList.remove("makeDisapear")
+        
+        
+
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        const flip = true;
+        webcam = new tmImage.Webcam(200, 200, flip);
+        await webcam.setup();
+        await webcam.play();
+        if(webcam.play()){
+            // textBox.classList.remove('makeDisapear')
+            // document.getElementById('experionTitle').classList.add("makeDisapear")
+            loadingCircle.classList.add("makeDisapear")
+            scoreDiv.classList.remove("makeDisapear");
+            skipButton.querySelector('button').classList.remove("makeDisapear");
+        }
+        window.requestAnimationFrame(loop);
+
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+            labelContainer.appendChild(document.createElement("div"));
+        }
+        showQuestion();
     }
-    window.requestAnimationFrame(loop);
 
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) {
-        labelContainer.appendChild(document.createElement("div"));
+    async function loop() {
+        webcam.update();
+        await predict();
+        window.requestAnimationFrame(loop);
     }
-    let isLastQues =  showQuestion();
-    if(isLastQues){
-        webcam.stop();
-        let camContainer = document.getElementById('webcam-container');
-        camContainer.classList.add("makeDisapear");
-    }
-}
 
-async function loop() {
-    webcam.update();
-    await predict();
-    window.requestAnimationFrame(loop);
-}
-
-function showQuestion() {
-    if (currentQuestionIndex < questions.length) {
-        const characterTextElement = document.getElementById("character-text");
-        characterTextElement.innerHTML = " ";
-        // const questionContainer = document.getElementById("question-container");
-        // const characterTextElement = document.getElementById("character-text");
-        fullMessage = questions[currentQuestionIndex].split(" -> ")[0];
-        typeEffect(characterTextElement, fullMessage, 10);
-        return false;
-        // questionContainer.innerHTML = questions[currentQuestionIndex].split(" -> ")[0];
-    } else {
-        document.getElementById("score-container").style.display = "block";
-        document.getElementById("score").textContent = score;
-        return true;
-        // webcam.stop();
-        // document.getElementById("webcam-container").classList.add("makeDisapear");
-        // document.getElementById("skipButton").classList.add("makeDisapear");
-        // document.getElementById("please-wait").style.display = "block"; // Show please wait message
-        // saveScore(user.uid, profileData.name, score);
-    }
-}
-
-async function predict() {
-    const prediction = await model.predict(webcam.canvas);
-    let correct = false;
-
-    for (let i = 0; i < maxPredictions; i++) {
-        if (prediction[i].className === questions[currentQuestionIndex].split(" -> ")[1] && prediction[i].probability > 0.865) {
-            labelContainer.childNodes[i].innerHTML = "Probability: " + prediction[i].probability.toFixed(2);
-            correct = true;
-        } else {
-            labelContainer.childNodes[i].innerHTML = "";
+    function showQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            const characterTextElement = document.getElementById("character-text");
+            characterTextElement.innerHTML = " ";
+            characterTextElement.style.color = "black";
+            fullMessage = questions[currentQuestionIndex].question;
+            typeEffect(characterTextElement, fullMessage, 10);
+        } else if (currentQuestionIndex >= questions.length){
+            // do something
+            stopGame();
         }
     }
 
-    if (correct) {
-        score += 1;
-        currentQuestionIndex += 1;
-        showQuestion();
-    }
-}
+    async function predict() {
+        const prediction = await model.predict(webcam.canvas);
+        let correct = false;
 
-function skipQuestion() {
-    currentQuestionIndex += 1;
-    showQuestion();
-}
-
-// Expose skipQuestion to global scope
-window.skipQuestion = skipQuestion;
-
-function stopGame() {
-    webcam.stop();
-    document.getElementById("webcam-container").style.display = "none";
-    document.getElementById("skipButton").style.display = "none";
-    document.getElementById("please-wait").style.display = "block"; // Show please wait message
-    saveScore(user.uid, profileData.name, score);
-}
-
-function saveScore(uid, name, newScore) {
-    const scoresRef = firestore.collection('HuntGame').doc(uid);
-
-    scoresRef.get()
-        .then(doc => {
-            if (doc.exists) {
-                const previousScore = doc.data().score;
-                if (newScore > previousScore) {
-                    updateScore(scoresRef, uid, name, newScore);
-                } else {
-                    console.log("New score is not higher than the previous score. No update made.");
-                    window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
-                }
+        for (let i = 0; i < maxPredictions; i++) {
+            if (prediction[i].className === questions[currentQuestionIndex].answer && prediction[i].probability > 0.865) {
+                correct = true;
             } else {
-                updateScore(scoresRef, uid, name, newScore);
             }
-        })
-        .catch(error => {
-            console.error("Error getting document:", error);
+        }
+
+        if (correct) {
+            let newMessage = "Correct!! Go to next question"
+            let skipButton = document.getElementById("skipButton")
+            let characterTextElement = document.getElementById('character-text');
+            skipButton.classList.add("makeDisapear");
+            characterTextElement.innerHTML = "";
+            characterTextElement.style.color = "green";
+            typeEffect(characterTextElement, newMessage, 50);
+            
+            score += 1;
+            document.getElementById("score").textContent = score;
+            document.getElementById("modalScore").innerHTML = score;
+            currentQuestionIndex += 1;
+        }
+    }
+
+    function skipQuestion() {
+        if(document.getElementById('character-text').innerHTML == "Correct!! Go to next question"){
+            showQuestion();
+        }
+        else{
+            currentQuestionIndex += 1;
+            showQuestion();
+        }
+        
+    }
+
+    // Expose skipQuestion to global scope
+    window.skipQuestion = skipQuestion;
+
+    function stopGame() {
+        webcam.stop();
+        document.getElementById("webcam-container").style.display = "none";
+        document.getElementById("skipButton").style.display = "none";
+        document.getElementById("please-wait").style.display = "block"; // Show please wait message
+        saveScore(user.uid, profileData.name, score);
+    }
+    // modal
+    function showModal() {
+        $('#myModal').modal('show');
+    }
+
+
+    function saveScore(uid, name, newScore) {
+        const scoresRef = firestore.collection('HuntGame').doc(uid);
+
+        scoresRef.get()
+            .then(doc => {
+                if (doc.exists) {
+                    const previousScore = doc.data().score;
+                    if (newScore > previousScore) {
+                        updateScore(scoresRef, uid, name, newScore);
+                    } else {
+                        console.log("New score is not higher than the previous score. No update made.");
+                        showModal();
+                        // window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
+                    }
+                } else {
+                    updateScore(scoresRef, uid, name, newScore);
+                }
+            })
+            .catch(error => {
+                console.error("Error getting document:", error);
+                document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
+                alert("Error saving score. Please try again.");
+            });
+    }
+
+    document.getElementById("scoreCardPage").addEventListener('click',()=>{
+        window.location.href = 'scoreCardHuntGame.html';
+    })
+
+    function updateScore(scoresRef, uid, name, score) {
+        scoresRef.set({
+            uid: uid,
+            name: name,
+            score: score,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            console.log("Score saved successfully!");
+            window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
+        }).catch(error => {
+            console.error("Error saving score:", error);
             document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
             alert("Error saving score. Please try again.");
         });
+    }
 }
 
-function updateScore(scoresRef, uid, name, score) {
-    scoresRef.set({
-        uid: uid,
-        name: name,
-        score: score,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-        console.log("Score saved successfully!");
-        window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
-    }).catch(error => {
-        console.error("Error saving score:", error);
-        document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
-        alert("Error saving score. Please try again.");
-    });
-}
+// Typing effect function
+// function typeEffect(element, text, delay = 100) {
+//     let index = 0;
+//     const chatbox = document.getElementsByClassName('character-message')
+//     function type() {
+//         if (index < text.length) {
+//             element.innerHTML += text.charAt(index);
+//             index++;
+//             chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
+//             setTimeout(type, delay);
+//         }
+//     }
+//     type();
+// }
+
+
+// "Where have you seen the symbol of hope (S) from DC comics here in Experion -> Superman",
+//     "Something related to ISRO here in Experion -> Rocket",
+//     "Fish, burger & soup -> Wall Food Art",
+//     "Puttu : Beef : : Fish Curry : ? -> Fish Curry",
+//     "Without idli, there is no chutney. Without chutney, there is no idli -> Chutney",
+//     "Where _ meets _ -> Stew",
+//     "After John, I am the first one to know when someone enters the office -> Scanner",
+//     "During breaks, I am your friend. A time to relax, a moment to spend filled with tea or coffee warm, I fit right in your palms' form. What am I? -> Tea Cup",
+//     "Whenever you take a break, I remind you to be creative -> Creative",
+//     "The yummiest irachi pidi -> Irachi Pidi",
+//     "I'm red & ready, in case of a blaze, with a nozzle to spray & put out the craze -> Fire Extinguisher",
+//     "The inseparable duo -> Puttu & Kadala"
+
+
+
+
 
 
 // init();
