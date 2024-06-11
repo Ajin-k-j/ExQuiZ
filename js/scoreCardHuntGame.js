@@ -1,35 +1,3 @@
-// Ensure all files are loaded before displaying the main content
-window.onload = function () {
-    document.getElementById('loader').style.display = 'none';
-    document.getElementById('main-content').classList.remove('d-none');
-};
-
-// Typing effect function
-function typeEffect(element, text, delay = 100) {
-    let index = 0;
-    const chatbox = document.getElementsByClassName('character-message')
-    function type() {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index);
-            index++;
-            chatbox[0].style.transform = `translateY(-${chatbox[0].clientHeight}px)`;
-            setTimeout(type, delay);
-        }
-    }
-    type();
-}
-
-// Dynamic content loading for character message
-document.addEventListener('DOMContentLoaded', function () {
-    const wordOfTheDay = 'Innovate';
-    const thoughtOfTheDay = 'Think big, start small, scale fast.';
-    const fullMessage = `Welcome to ExQuiZ, the word of the day is ${wordOfTheDay} and the thought of the day is ${thoughtOfTheDay}.`;
-
-    const characterTextElement = document.getElementById('character-text');
-    typeEffect(characterTextElement, fullMessage, 50);  // Adjust the delay for typing speed
-});
-
-
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
@@ -103,45 +71,10 @@ function calculateRank(userScore) {
         });
 }
 
-// Function to fetch and display the leaderboard
-function displayLeaderboard() {
-    const leaderboardRef = firestore.collection('HuntGame').orderBy('score', 'desc');
-
-    leaderboardRef.get()
-        .then(querySnapshot => {
-            const leaderboardContainer = document.getElementById('leaderboard');
-            leaderboardContainer.innerHTML = ''; // Clear previous content
-
-            querySnapshot.forEach(doc => {
-                const scoreData = doc.data();
-                const userId = doc.id;
-
-                // Fetch user profile data
-                firestore.collection('profiles').doc(userId).get()
-                    .then(profileDoc => {
-                        if (profileDoc.exists) {
-                            const profileData = profileDoc.data();
-                            const listItem = document.createElement('li');
-                            listItem.classList.add('list-group-item');
-                            listItem.textContent = `${profileData.name}: ${scoreData.score}`;
-                            leaderboardContainer.appendChild(listItem);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching user profile for leaderboard:", error);
-                    });
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching leaderboard:", error);
-        });
-}
-
 // Check authentication state and get user's score
 auth.onAuthStateChanged(user => {
     if (user) {
         getAndDisplayUserScore(user);
-        displayLeaderboard();
         document.getElementById('nav-signin').style.display = 'none';
         document.getElementById('nav-signup').style.display = 'none';
         document.getElementById('nav-profile').style.display = 'block';

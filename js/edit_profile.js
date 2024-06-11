@@ -27,7 +27,7 @@ auth.onAuthStateChanged(user => {
                     const profileData = doc.data();
                     // Populate the form fields with existing data
                     document.getElementById('profile-name').value = profileData.name;
-                    document.getElementById('profile-username').value = profileData.username;
+                    document.getElementById('profile-username-display').innerText = profileData.username;
                     document.getElementById('profile-phone').value = profileData.phone ? profileData.phone : '';
                     // Display profile picture
                     if (profileData.photoURL) {
@@ -56,7 +56,6 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     }
 
     const name = document.getElementById('profile-name').value;
-    const username = document.getElementById('profile-username').value;
     const phone = document.getElementById('profile-phone').value;
     const photoFile = document.getElementById('profile-photo').files[0];
 
@@ -66,7 +65,6 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     // Update profile data in Firestore
     const profileData = {
         name: name,
-        username: username,
         phone: phone
     };
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
-
 <body>
     <!-- Loader Animation -->
     <div id="loader">
@@ -39,7 +37,7 @@
                         <a class="nav-link" href="#">Quiz Challenge</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="leaderBoard.html">Leaderboard</a>
                     </li>
                     <li class="nav-item" id="nav-signup">
                         <a class="nav-link" href="signup.html">Sign Up</a>
@@ -90,9 +88,9 @@
         </div>
 
         <!-- Leaderboard Section -->
-        <div class="my-4">
+        <div id="leaderboard-section" class="my-4">
             <h3>Leaderboard</h3>
-            <!-- Placeholder for leaderboard content -->
+            <ul id="leaderboard" class="list-group"></ul>
         </div>
 
         <!-- Rules and Regulations Section -->
@@ -108,5 +106,4 @@
     <script src="js/scripts.js"></script>
     <script src="js/auth.js"></script>
 </body>
-
 </html>

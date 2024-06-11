@@ -3,23 +3,25 @@
 :root {
     --bgColour: white;
     --expColour: #dc143c;
-  }
+}
 
-  body {
+body {
     width: 100%;
-    
     margin: 0 auto;
     padding: 0;
-  }
-  .scorecard {
-    width: 300px;
-    margin:0 auto;
+}
+
+.scorecard {
+    width: 90%;
+    max-width: 300px;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-image: linear-gradient(to bottom right, var(--expColour),white);
-  }
-  .player-image {
+    background-image: linear-gradient(to bottom right, var(--expColour), white);
+}
+
+.player-image {
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
@@ -27,44 +29,55 @@
     border: 4px solid #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1;
-  }
-  .player-name {
+}
+
+.player-name {
     font-smooth: never;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
-  }
-  .score {
+    text-align: center;
+}
+
+.score {
     font-family: 'Pixelify Sans';
     font-size: 2rem;
     margin-bottom: 10px;
     color: var(--expColour);
-  }
-  .score i{
+    text-align: center;
+}
+
+.score i {
     color: gold;
-  }
-  .score span{
+}
+
+.score span {
     font-family: 'sans-serif';
     font-weight: bold;
-  }
-  .rank {
+}
+
+.rank {
     font-size: 1.5rem;
     color: #666;
     margin-bottom: 20px;
-  }
-  .rank i{
+    text-align: center;
+}
+
+.rank i {
     color: gold;
-  }
-  .scorecard-heading {
+}
+
+.scorecard-heading {
     font-size: 2rem;
     font-family: 'Pixelify Sans';
-    /* font-weight: bold; */
     margin-bottom: 20px;
     color: gold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .scorecard::before {
+    text-align: center;
+}
+
+.scorecard::before {
     content: '';
     top: 0;
     left: 0;
@@ -73,12 +86,14 @@
     background: linear-gradient(45deg, #007bff, #00bfff);
     border-radius: 10px;
     z-index: -1;
-  }
+}
 
-  .btn2{
+.btn2 {
     background-color: #dc143c;
     opacity: 75%;
     color: white;
     padding: .4rem 1rem;
     border-radius: 10px;
-  }
+    display: block;
+    margin: 0 auto;
+}

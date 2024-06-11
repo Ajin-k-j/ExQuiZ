@@ -36,30 +36,55 @@ $('#profile-form').submit(function(e) {
         return;
     }
 
-    // Upload profile photo
-    const storageRef = storage.ref();
-    const photoRef = storageRef.child(`profile_photos/${user.uid}/${photoFile.name}`);
-    photoRef.put(photoFile)
+    // Show loading text
+    $('#loading-text').show();
+
+    // Check if the entered username already exists
+    firestore.collection('profiles').where('username', '==', username).get()
     .then(snapshot => {
-        return snapshot.ref.getDownloadURL();
-    })
-    .then(photoURL => {
-        // Save profile data to Firestore
-        return firestore.collection('profiles').doc(user.uid).set({
-            name: name,
-            username: username,
-            phone: phone,
-            photoURL: photoURL,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-    })
-    .then(() => {
-        alert("Profile created successfully!");
-        window.location.href = 'index.html';
+        if (!snapshot.empty) {
+            // Username already exists, prompt user to choose another username
+            alert("The username already exists. Please choose another one.");
+            // Hide loading text
+            $('#loading-text').hide();
+        } else {
+            // Upload profile photo
+            const storageRef = storage.ref();
+            const photoRef = storageRef.child(`profile_photos/${user.uid}/${photoFile.name}`);
+            photoRef.put(photoFile)
+            .then(snapshot => {
+                return snapshot.ref.getDownloadURL();
+            })
+            .then(photoURL => {
+                // Save profile data to Firestore
+                return firestore.collection('profiles').doc(user.uid).set({
+                    name: name,
+                    username: username,
+                    phone: phone,
+                    photoURL: photoURL,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            })
+            .then(() => {
+                alert("Profile created successfully!");
+                window.location.href = 'index.html';
+            })
+            .catch(error => {
+                console.error("Error creating profile:", error);
+                // Handle error
+                alert("Error creating profile. Please try again.");
+            })
+            .finally(() => {
+                // Hide loading text
+                $('#loading-text').hide();
+            });
+        }
     })
     .catch(error => {
-        console.error("Error creating profile:", error);
+        console.error("Error checking username:", error);
         // Handle error
-        alert("Error creating profile. Please try again.");
+        alert("Error checking username. Please try again.");
+        // Hide loading text
+        $('#loading-text').hide();
     });
 });
