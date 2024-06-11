@@ -107,13 +107,16 @@ h1 i{
   border-radius: 10px;
   overflow: hidden;
   margin-top: 20px;
+  margin-bottom: 80px;
 }
 .leaderboard-container img:hover{
     transform: scale(3);
 }
 
 .leaderboard-container h1 {
+  font-size: 30px;
   background-color: var(--expColour);
+  opacity: 0.9;
   color: white;
   text-align: center;
   margin: 0;
@@ -129,6 +132,7 @@ thead {
   background-color: var(--expColour);
   opacity: 0.75;
   color: white;
+  text-align: center;
 }
 
 th,
