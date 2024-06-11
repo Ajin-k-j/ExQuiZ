@@ -11,7 +11,9 @@
     <title>ExQuiZ Hunt Game</title>
   </head>
   <body>
-    <div id="loader">Loading...</div>
+    <div id="loader">
+      <div class="pulse">ExQuiZ</div>
+  </div>
     <div id="main-content" class="d-none">
       <!-- Navigation Bar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -66,6 +68,10 @@
           <div><h1>on</h1></div>
       </div>
         <div id="webcam-container">
+          <!-- Instructional Text -->
+      <div class="text-center my-3" id="inst">
+        <p>Click on the open camera button and you will get your first question. The answer will be some object, designs or places in Experion office. Good luck for your Hunt.</p>
+      </div>
             <div class="spinner-border makeDisapear" id="loadingCircle" role="status">
                 <!-- <span class="visually-hidden">Loading...</span> -->
             </div>
@@ -111,18 +117,19 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
-              <div class="modal-body">
-                  <h3 id="modalScoreEachQues">0</h3>
-              </div>
-              <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="nextQuesModal">Close</button> -->
-                  <!-- <button type="button" class="btn bbtn-secondary "  data-bs-dismiss="modal">Next Question</button> -->
-              </div>
+
           </div>
       </div>
   </div>
     
 
+  <!-- Score Pop-up Container -->
+  <div id="popup-container" class="d-none text-center">
+    <h5>Your Final Score</h5>
+    <h3 id="popup-score">0</h3>
+    <button class="btn btn-primary" id="scoreCardPageButton">Next</button>
+  </div>
+  
     <!-- for score testing -->
     <div id="label-container"></div>
     <div id="please-wait"></div>

@@ -14,6 +14,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
+
+const questions = [];
+
 window.onload = function () {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -68,13 +71,24 @@ function startGame(user, profileData) {
     let model, webcam, labelContainer, maxPredictions;
     let score = 0;
     let currentQuestionIndex = 0;
-    const questions = [
-        {question :"Had food?", answer : "Red Board" },
-        {question :"We are committed to achieve organization's growth", answer : "Autograph" },
-        {question :"I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold", answer : "Coffee Machine" },
-        {question :"I am the sign that says 'Challenge your limits' with an arrow", answer : "Arrow" },
-        {question :"With unity & trust, we conquer the peak. Together we rise, even mountains we seek", answer : "Climbing Up Mountain" } 
-    ];
+    firestore.collection('quiz-questions').get()
+                .then(querySnapshot => {
+                    
+                    querySnapshot.forEach(doc => {
+                        questions.push(doc.data());
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching quiz questions:", error);
+                });
+    console.log(questions);
+    // const questions = [
+    //     {question :"Had food?", answer : "Red Board" },
+    //     {question :"We are committed to achieve organization's growth", answer : "Autograph" },
+    //     {question :"I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold", answer : "Coffee Machine" },
+    //     {question :"I am the sign that says 'Challenge your limits' with an arrow", answer : "Arrow" },
+    //     {question :"With unity & trust, we conquer the peak. Together we rise, even mountains we seek", answer : "Climbing Up Mountain" } 
+    // ];
 
     const startQuizButton = document.getElementById('camButton');
     startQuizButton.addEventListener('click', init);
@@ -85,9 +99,10 @@ function startGame(user, profileData) {
         let scoreDiv = document.getElementById('score-container');
         let textBox = document.getElementById('character-message');
         cameraButton.classList.add("makeDisapear");
-        loadingCircle.classList.remove("makeDisapear")
+        loadingCircle.classList.remove("makeDisapear");
+        let instDiv = document.getElementById("inst");
         
-        
+        instDiv.style.display = 'none'; 
 
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
@@ -176,6 +191,14 @@ function startGame(user, profileData) {
         
     }
 
+
+    function showFinalScore() {
+        const finalScore = score;
+        alert(`Your Final Score: ${finalScore}`);
+        window.location.href = 'scoreCardHuntGame.html';
+    }
+    
+        
     // Expose skipQuestion to global scope
     window.skipQuestion = skipQuestion;
 
@@ -185,6 +208,7 @@ function startGame(user, profileData) {
         document.getElementById("skipButton").style.display = "none";
         document.getElementById("please-wait").style.display = "block"; // Show please wait message
         saveScore(user.uid, profileData.name, score);
+        showFinalScore();
     }
     // modal
     function showModal() {
@@ -206,7 +230,7 @@ function startGame(user, profileData) {
                         updateScore(scoresRef, uid, name, newScore);
                     } else {
                         console.log("New score is not higher than the previous score. No update made.");
-                        showModal();
+                        // showModal();
                         // window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
                     }
                 } else {

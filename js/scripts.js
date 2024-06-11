@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error:', error);
         }
-    }, 5000);
+    }, 4000);
 
     setTimeout(async() => {
         characterTextElement.innerHTML = " ";
