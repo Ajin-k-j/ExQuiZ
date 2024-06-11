@@ -3,6 +3,10 @@
     --experionRed : #C73659;
     --expDeepRed: #dc143c;
 }
+.brandName{
+    color: var(--expDeepRed);
+    font-family: 'Times New Roman', Times, serif;
+}
 
 /* Loader Animation */
 #loader {
