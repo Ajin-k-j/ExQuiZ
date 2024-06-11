@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/games.css" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">GameZone</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Games</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Buttons -->
+    <div class="container text-center buttons">
+        <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#addGameModal">Add Your Game</button>
+        <button type="button" class="btn btn-secondary m-2">Support Us</button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading" class="text-center my-4">Loading...</div>
+
+    <!-- Cards -->
+    <div class="container">
+        <div class="row" id="gameCards">
+            <!-- Dynamic game cards will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Modal for Add Game -->
+    <div class="modal fade" id="addGameModal" tabindex="-1" aria-labelledby="addGameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGameModalLabel">Add Your Game</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addGameForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gameTitle">Game Title</label>
+                            <input type="text" class="form-control" id="gameTitle" placeholder="Enter game title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gameHostLink">Game Host Link</label>
+                            <input type="url" class="form-control" id="gameHostLink" placeholder="Enter game host link" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gameDescription">Game Description</label>
+                            <textarea class="form-control" id="gameDescription" rows="3" placeholder="Enter game description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contributorsName">Contributors Name</label>
+                            <input type="text" class="form-control" id="contributorsName" placeholder="Enter contributors name" required>
+                        </div>
+                        <div class="form-group">
+                            <small class="form-text text-muted">By submitting, you give us the right to publish your game on GameZone.</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Your custom script -->
+    <script src="js/games.js"></script>
+</body>
+</html>
