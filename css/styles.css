@@ -50,7 +50,7 @@
     display: inline-block;
     position: absolute;
     left: 0px;
-    top: 100px;
+    top: 30%;
     min-width: 100%;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -73,7 +73,7 @@
 }
 .character-box{
     position: absolute;
-    top: 100px;
+    top: 34%;
     left: 0px;
     width: 100%;
 }

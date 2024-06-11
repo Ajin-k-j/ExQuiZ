@@ -22,13 +22,38 @@ function typeEffect(element, text, delay = 100) {
 
 // Dynamic content loading for character message
 document.addEventListener('DOMContentLoaded', function () {
-    const wordOfTheDay = 'Innovate';
-    const thoughtOfTheDay = 'Think big, start small, scale fast.';
-    const fullMessage = `Welcome to ExQuiZ, the word of the day is ${wordOfTheDay} and the thought of the day is ${thoughtOfTheDay}.`;
-
+    const fullMessage = `Welcome to ExQuiZ`;
     const characterTextElement = document.getElementById('character-text');
+    
     typeEffect(characterTextElement, fullMessage, 50);  // Adjust the delay for typing speed
+    
+    setTimeout(async () => {
+        try {
+            characterTextElement.innerHTML = " ";
+            const data = await getRandomQuote();
+            console.log(data);
+            const textContent = `"${data.quote}" - ${data.author}`;
+            typeEffect(characterTextElement, textContent, 35);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }, 5000);
+
+    setTimeout(async() => {
+        characterTextElement.innerHTML = " ";
+        const newmessage = "Let\'s Explore The App, Shall We?";
+        typeEffect(characterTextElement, newmessage, 50);
+    }, 15000);
 });
+
+async function getRandomQuote() {
+    const response = await fetch('https://api.quotable.io/random');
+    const data = await response.json();
+    return {
+        quote: data.content,
+        author: data.author
+    };
+}
 
 
 // Firebase configuration
