@@ -1,52 +1,6 @@
-// window.location.pathname.split('/').pop() === 'quizPage.html') {
-
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-// import {
-//   getFirestore,
-//   collection,
-//   getDocs,
-// } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
- 
-// // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDB0NHFMU24gGMPci-I6WkTlcfn3vy9CQY",
-//   authDomain: "fir-may-e7ff3.firebaseapp.com",
-//   projectId: "fir-may-e7ff3",
-//   storageBucket: "fir-may-e7ff3.appspot.com",
-//   messagingSenderId: "816370027290",
-//   appId: "1:816370027290:web:bd4fcb6741e6d0e2407aa3"
-// };
- 
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
- 
-// async function getData() {
-//   const qnansContainer = document.getElementById("qnans");
-//   const querySnapshot = await getDocs(collection(db, "quiz-questions"));
-//   if (!querySnapshot.empty) {
-//     return querySnapshot;
-//     // let qnansHTML = "";
-//     // querySnapshot.forEach((doc) => {
-//     //   const data = doc.data();
-//     //   console.log("Document data:", data);
-//     //   // Append each document's data to the leaderboard HTML
-//     // //   qnansHTML += `<div>Question: ${data.question}, Answer: ${data.answer}</div>`;
-//     // });
-//     // qnansContainer.innerHTML = qnansHTML;
-//   } else {
-//     console.log("No documents found!");
-//     qnansContainer.innerHTML = "No documents found!";
-//   }
-// }
- 
-// const questions = getData();
-// console.log(questions);
-
-
 
 // Firebase configuration
-const firebaseConfigScore = {
+const firebaseConfig = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
     authDomain: "exquiz-f88c8.firebaseapp.com",
     projectId: "exquiz-f88c8",
@@ -57,7 +11,7 @@ const firebaseConfigScore = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfigScore);
+firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
 
 window.onload = function () {
@@ -202,11 +156,14 @@ function startGame(user, profileData) {
             typeEffect(characterTextElement, newMessage, 50);
             
             score += 1;
-            document.getElementById("score").textContent = score;
-            document.getElementById("modalScore").innerHTML = score;
+            document.getElementById("modalScore").textContent = score;
+            document.getElementById("modalScoreEachQues").textContent = score;
+            showModalCurrScore();
+
             currentQuestionIndex += 1;
         }
     }
+
 
     function skipQuestion() {
         if(document.getElementById('character-text').innerHTML == "Correct!! Go to next question"){
@@ -232,6 +189,9 @@ function startGame(user, profileData) {
     // modal
     function showModal() {
         $('#myModal').modal('show');
+    }
+    function showModalCurrScore() {
+        $('#currentScoreModal').modal('show');
     }
 
 
