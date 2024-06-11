@@ -46,20 +46,14 @@ function fetchUserProfile() {
 
 // Function to display user profile
 function displayProfile(profileData) {
-    const profilePhoto = document.getElementById('profile-photo');
-    const profileName = document.getElementById('profile-name');
-    const profileUsername = document.getElementById('profile-username');
-    const profilePhone = document.getElementById('profile-phone');
-
-    // Update profile photo
-    profilePhoto.src = profileData.photoURL;
-
-    // Update profile details
-    profileName.textContent = profileData.name;
-    profileUsername.textContent = profileData.username;
-    profilePhone.textContent = profileData.phone ? profileData.phone : 'Not provided';
+    const profileInfoDiv = document.getElementById('profile-info');
+    profileInfoDiv.innerHTML = `
+        <p><strong>Name:</strong> ${profileData.name}</p>
+        <p><strong>Username:</strong> ${profileData.username}</p>
+        <p><strong>Phone:</strong> ${profileData.phone ? profileData.phone : 'Not provided'}</p>
+        <img src="${profileData.photoURL}" alt="Profile Photo" class="img-fluid">
+    `;
 }
-
 
 // Call function to fetch and display user profile on page load
 fetchUserProfile();

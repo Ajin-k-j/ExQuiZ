@@ -1,6 +1,7 @@
 /* root colors */
 :root{
     --experionRed : #C73659;
+    --expDeepRed: #dc143c;
 }
 
 /* Loader Animation */
@@ -164,4 +165,27 @@ h3 {
     height: 100%;
     display: flex;
     align-items: center;
+}
+
+.bottomNav{
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* background-color: var(--expDeepRed); */
+    padding: 10px;
+    background-color: white;
+    border: 3px solid whitesmoke;
+}
+.bottomNav button{
+    color: var(--expDeepRed);
+    /* background-color: var(--expDeepRed); */
+}
+
+.div1, .div2{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
 }
