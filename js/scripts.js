@@ -2,6 +2,7 @@
 window.onload = function () {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('main-content').classList.remove('d-none');
+    displayLeaderboard();
 };
 
 // Typing effect function
@@ -55,7 +56,7 @@ function getAndDisplayUserScore(user) {
             if (doc.exists) {
                 const scoreData = doc.data();
                 // Get user profile picture from profiles collection
-                getUserProfile(user.uid, scoreData);
+                // getUserProfile(user.uid, scoreData);
             } else {
                 console.log("No score found for this user.");
             }
@@ -66,25 +67,25 @@ function getAndDisplayUserScore(user) {
 }
 
 // Function to get user profile information
-function getUserProfile(userId, scoreData) {
-    const profilesRef = firestore.collection('profiles').doc(userId);
+// function getUserProfile(userId, scoreData) {
+//     const profilesRef = firestore.collection('profiles').doc(userId);
 
-    profilesRef.get()
-        .then(doc => {
-            if (doc.exists) {
-                const profileData = doc.data();
-                document.getElementById('player-name').textContent = profileData.name;
-                document.getElementById('player-image').src = profileData.photoURL || "https://via.placeholder.com/150"; // Default image if none
-                document.getElementById('player-score').textContent = scoreData.score;
-                calculateRank(scoreData.score);
-            } else {
-                console.log("No profile found for this user.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching profile:", error);
-        });
-}
+//     profilesRef.get()
+//         .then(doc => {
+//             if (doc.exists) {
+//                 const profileData = doc.data();
+//                 document.getElementById('player-name').textContent = profileData.name;
+//                 document.getElementById('player-image').src = profileData.photoURL || "https://via.placeholder.com/150"; // Default image if none
+//                 document.getElementById('player-score').textContent = scoreData.score;
+//                 calculateRank(scoreData.score);
+//             } else {
+//                 console.log("No profile found for this user.");
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error fetching profile:", error);
+//         });
+// }
 
 // Function to calculate and display rank (example logic)
 function calculateRank(userScore) {
@@ -114,22 +115,14 @@ function displayLeaderboard() {
 
             querySnapshot.forEach(doc => {
                 const scoreData = doc.data();
-                const userId = doc.id;
+                const name = scoreData.name;
+                const score = scoreData.score;
 
-                // Fetch user profile data
-                firestore.collection('profiles').doc(userId).get()
-                    .then(profileDoc => {
-                        if (profileDoc.exists) {
-                            const profileData = profileDoc.data();
-                            const listItem = document.createElement('li');
-                            listItem.classList.add('list-group-item');
-                            listItem.textContent = `${profileData.name}: ${scoreData.score}`;
-                            leaderboardContainer.appendChild(listItem);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error fetching user profile for leaderboard:", error);
-                    });
+                // Create list item to display name and score
+                const listItem = document.createElement('li');
+                listItem.classList.add('list-group-item');
+                listItem.textContent = `${name}: ${score}`;
+                leaderboardContainer.appendChild(listItem);
             });
         })
         .catch(error => {
@@ -137,11 +130,12 @@ function displayLeaderboard() {
         });
 }
 
-// Check authentication state and get user's score
+
+
+// Check authentication state
 auth.onAuthStateChanged(user => {
     if (user) {
         getAndDisplayUserScore(user);
-        displayLeaderboard();
         document.getElementById('nav-signin').style.display = 'none';
         document.getElementById('nav-signup').style.display = 'none';
         document.getElementById('nav-profile').style.display = 'block';
@@ -149,7 +143,7 @@ auth.onAuthStateChanged(user => {
         document.getElementById('nav-signed-in-as').style.display = 'block';
         document.getElementById('nav-signed-in-as').textContent = `Signed in as: ${user.email}`;
     } else {
-        window.location.href = 'signin.html'; // Redirect to sign-in page if not signed in
+        // window.location.href = 'signin.html'; // Redirect to sign-in page if not signed in
     }
 });
 
