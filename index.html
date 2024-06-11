@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExQuiZ</title>
+    <title>ExQuiZzzz</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
-
 <body>
     <!-- Loader Animation -->
     <div id="loader">
@@ -35,8 +37,21 @@
                         <a class="nav-link" href="#">Quiz Challenge</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="leaderBoard.html">Leaderboard</a>
                     </li>
+                    <li class="nav-item" id="nav-signup">
+                        <a class="nav-link" href="signup.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item" id="nav-signin">
+                        <a class="nav-link" href="signin.html">Sign In</a>
+                    </li>
+                    <li class="nav-item" id="nav-profile" style="display: none;">
+                        <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
+                    </li>
+                    <li class="nav-item" id="nav-logout" style="display: none;">
+                        <a class="nav-link" href="#" id="logout">Logout</a>
+                    </li>
+                    <li class="nav-item" id="nav-signed-in-as" style="display: none;"></li>
                 </ul>
             </div>
         </nav>
@@ -67,15 +82,15 @@
             </div>
             <div class="col-6 text-center">
                 <p>I am an Experionite.</p>
-                <a href="./quizPage.html"><button class="btn btn-secondary">Experience</button></a>
+                <a href="instruction.html"><button class="btn btn-secondary">Experience</button></a>
                 
             </div>
         </div>
 
         <!-- Leaderboard Section -->
-        <div class="my-4">
+        <div id="leaderboard-section" class="my-4">
             <h3>Leaderboard</h3>
-            <!-- Placeholder for leaderboard content -->
+            <ul id="leaderboard" class="list-group"></ul>
         </div>
 
         <!-- Rules and Regulations Section -->
@@ -88,7 +103,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/auth.js"></script>
 </body>
-
 </html>
