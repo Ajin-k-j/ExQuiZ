@@ -8,6 +8,7 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="./css/quizPage.css" />
+    <link rel="stylesheet" href="css/common.css">
     <title>ExQuiZ Hunt Game</title>
   </head>
   <body>
@@ -16,40 +17,35 @@
   </div>
     <div id="main-content" class="d-none">
       <!-- Navigation Bar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ExQuiZ</a>
-        <div id="score-container" class="makeDisapear" >Score: <span id="score">0</span></div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+      <nav class="navbar navbar-expand-lg navbar-light navCus">
+        <a class="navbar-brand brandName" href="#">ExQuiZ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
-                >Home <span class="sr-only">(current)</span></a
-              >
-            </li>
-           
-            <li class="nav-item">
-              <a class="nav-link" href="#">Scavenger Hunt</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Quiz Challenge</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Leaderboard</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="instruction.html">Experion Hunt</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="leaderBoard.html">Leaderboard</a>
+              </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="feedback.html">Feedback</a>
+                </li>
+                
+                <li class="nav-item" id="nav-profile" style="display: none;">
+                    <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
+                </li>
+                
+                <li class="nav-item" id="nav-signed-in-as" style="display: none;"></li>
+            </ul>
         </div>
-      </nav>
+    </nav>
 
       <!-- Character Section -->
       <div id="character-section" class="text-center my-4">
