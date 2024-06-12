@@ -8,11 +8,11 @@
     font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
 }
-.navB1{
+/* .navB1{
     background-color: var(--expDeepRed);
     font-weight: 500;
     color: white;
-}
+} */
 
 /* Loader Animation */
 #loader {
