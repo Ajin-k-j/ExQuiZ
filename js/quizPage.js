@@ -106,7 +106,7 @@ function startGame(user, profileData) {
         await webcam.play();
         if (webcam.play()) {
             loadingCircle.classList.add("makeDisapear");
-            scoreDiv.classList.remove("makeDisapear");
+            // scoreDiv.classList.remove("makeDisapear");
             skipButton.querySelector('button').classList.remove("makeDisapear");
         }
         window.requestAnimationFrame(loop);
