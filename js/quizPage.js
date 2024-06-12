@@ -157,6 +157,7 @@ function startGame(user, profileData) {
             typeEffect(characterTextElement, newMessage, 50);
 
             score += 1;
+            document.getElementById('score').textContent = score;
             document.getElementById("modalScore").textContent = score;
             document.getElementById("modalScoreEachQues").textContent = score;
             showModalCurrScore();
