@@ -157,6 +157,7 @@ function startGame(user, profileData) {
             typeEffect(characterTextElement, newMessage, 50);
 
             score += 1;
+            document.getElementById('score').textContent = score;
             document.getElementById("modalScore").textContent = score;
             document.getElementById("modalScoreEachQues").textContent = score;
             showModalCurrScore();
@@ -189,7 +190,6 @@ function startGame(user, profileData) {
         document.getElementById("skipButton").style.display = "none";
         document.getElementById("please-wait").style.display = "block"; // Show please wait message
         saveScore(user.uid, profileData.name, score);
-        showFinalScore()
     }
 
     // Modal
@@ -212,6 +212,7 @@ function startGame(user, profileData) {
                     await updateScore(scoresRef, uid, name, newScore);
                 } else {
                     console.log("New score is not higher than the previous score. No update made.");
+                    showFinalScore();
                 }
             } else {
                 await updateScore(scoresRef, uid, name, newScore);
@@ -232,6 +233,7 @@ function startGame(user, profileData) {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
             console.log("Score saved successfully!");
+            document.getElementById("please-wait").style.display = "none"; // Hide please wait message on success
             showFinalScore(); // Call showFinalScore after score is saved
         } catch (error) {
             console.error("Error saving score:", error);
