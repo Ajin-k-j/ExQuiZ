@@ -6,14 +6,15 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/instruction.css">
+    <link rel="stylesheet" href="css/common.css">
 
     <title>Document</title>
 </head>
 <body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ExQuiZ</a>
+    <nav class="navbar navbar-expand-lg navbar-light navCus">
+        <a class="navbar-brand brandName" href="#">ExQuiZ</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,14 +24,19 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Scavenger Hunt</a>
+                    <a class="nav-link" href="instruction.html">Experion Hunt</a>
                 </li>
+                
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Quiz Challenge</a>
+                    <a class="nav-link" href="feedback.html">Feedback</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Leaderboard</a>
+                
+                <li class="nav-item" id="nav-profile" style="display: none;">
+                    <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
                 </li>
+                
+                <li class="nav-item" id="nav-signed-in-as" style="display: none;"></li>
             </ul>
         </div>
     </nav>

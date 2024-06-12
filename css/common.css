@@ -1,0 +1,16 @@
+:root{
+    --experionRed : #C73659;
+    --expDeepRed: #dc143c;
+}
+.brandName{
+    /* color: var(--expDeepRed); */
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+  }
+
+.navCus{
+    background-color: whitesmoke;
+}
