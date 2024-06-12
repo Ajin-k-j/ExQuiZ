@@ -13,6 +13,10 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/css/leaderBoard.css">
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md bg-body-tertiary">
@@ -59,8 +63,8 @@
             <div class="trophy d-flex justify-content-center align-items-center">
               <i class="fa-solid fa-trophy fa-2x"></i>
               <div>
-                <span>Alice</span>
-                <div>Score: <span>300</span></div>
+                <span class="playerName" id="topPlayer1">_____</span>
+                <div>Score: <span id="topPlayer1Score">0</span></div>
               </div>
             </div>
           </div>
@@ -76,8 +80,8 @@
               <div class="trophy d-flex justify-content-center align-items-center">
                 <i class="fa-solid fa-trophy fa-2x"></i>
                 <div>
-                  <span>Bob</span>
-                  <div>Score: <span>250</span></div>
+                  <span class="playerName" id="topPlayer2">_____</span>
+                  <div>Score: <span id="topPlayer2Score">0</span></div>
                 </div>
               </div>
             </div>
@@ -92,13 +96,13 @@
               <div class="trophy d-flex justify-content-center align-items-center">
                 <i class="fa-solid fa-trophy fa-2x"></i>
                 <div>
-                  <span>Charlie</span>
-                  <div>Score: <span>200</span></div>
+                  <span class="playerName" id="topPlayer3">_____</span>
+                  <div>Score: <span id="topPlayer3Score">0</span></div>
                 </div>
               </div>
             </div>
           </div>
-          <div><a href="#"><button type="button" class="btn1">Compete Now</button></div></a>
+          <div><a href="instruction.html"><button type="button" class="btn1">Compete Now</button></div></a>
           <!-- <div><button type="button" class="btn btn1">Share Leaderboard</button></div> -->
         </section>
     
@@ -121,10 +125,11 @@
         </section>
       </section>
 
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <script src="js/leaderBoard.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/leaderBoardFinal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

@@ -85,6 +85,9 @@ h1 i{
   animation: pulse 3s ease-in-out infinite;
   border-radius: 50%;
 }
+.playerName{
+  font-weight: bold;
+}
 .btn1{
   background-color: #dc143c;
   opacity: 75%;
