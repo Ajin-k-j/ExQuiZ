@@ -1,4 +1,3 @@
-
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD_dw_10O8R9ECzkM30wnqE1YPxhfTyS14",
@@ -13,7 +12,6 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
-
 
 const questions = [];
 
@@ -63,8 +61,7 @@ function startGame(user, profileData) {
     }
     let initialText = "Click the button below to open your camera and see the first question";
     let initialTextBox = document.getElementById("character-text");
-    typeEffect(initialTextBox, initialText,20);
-    
+    typeEffect(initialTextBox, initialText, 20);
 
     const URL = "https://teachablemachine.withgoogle.com/models/K6tcbDhZH/";
 
@@ -72,28 +69,21 @@ function startGame(user, profileData) {
     let score = 0;
     let currentQuestionIndex = 0;
     firestore.collection('quiz-questions').get()
-                .then(querySnapshot => {
-                    
-                    querySnapshot.forEach(doc => {
-                        questions.push(doc.data());
-                    });
-                })
-                .catch(error => {
-                    console.error("Error fetching quiz questions:", error);
-                });
-    console.log(questions);
-    // const questions = [
-    //     {question :"Had food?", answer : "Red Board" },
-    //     {question :"We are committed to achieve organization's growth", answer : "Autograph" },
-    //     {question :"I hum in the break room, a daily delight. Giving employees a much needed respite by turning beans into liquid gold", answer : "Coffee Machine" },
-    //     {question :"I am the sign that says 'Challenge your limits' with an arrow", answer : "Arrow" },
-    //     {question :"With unity & trust, we conquer the peak. Together we rise, even mountains we seek", answer : "Climbing Up Mountain" } 
-    // ];
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                questions.push(doc.data());
+            });
+            console.log(questions); // Ensure questions are fetched
+        })
+        .catch(error => {
+            console.error("Error fetching quiz questions:", error);
+        });
 
     const startQuizButton = document.getElementById('camButton');
     startQuizButton.addEventListener('click', init);
+
     async function init() {
-        let loadingCircle = document.getElementById("loadingCircle")
+        let loadingCircle = document.getElementById("loadingCircle");
         let cameraButton = document.getElementById("camButton");
         let skipButton = document.getElementById("skipButton");
         let scoreDiv = document.getElementById('score-container');
@@ -101,8 +91,8 @@ function startGame(user, profileData) {
         cameraButton.classList.add("makeDisapear");
         loadingCircle.classList.remove("makeDisapear");
         let instDiv = document.getElementById("inst");
-        
-        instDiv.style.display = 'none'; 
+
+        instDiv.style.display = 'none';
 
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
@@ -114,10 +104,8 @@ function startGame(user, profileData) {
         webcam = new tmImage.Webcam(200, 200, flip);
         await webcam.setup();
         await webcam.play();
-        if(webcam.play()){
-            // textBox.classList.remove('makeDisapear')
-            // document.getElementById('experionTitle').classList.add("makeDisapear")
-            loadingCircle.classList.add("makeDisapear")
+        if (webcam.play()) {
+            loadingCircle.classList.add("makeDisapear");
             scoreDiv.classList.remove("makeDisapear");
             skipButton.querySelector('button').classList.remove("makeDisapear");
         }
@@ -144,8 +132,7 @@ function startGame(user, profileData) {
             characterTextElement.style.color = "black";
             fullMessage = questions[currentQuestionIndex].question;
             typeEffect(characterTextElement, fullMessage, 10);
-        } else if (currentQuestionIndex >= questions.length){
-            // do something
+        } else if (currentQuestionIndex >= questions.length) {
             stopGame();
         }
     }
@@ -157,19 +144,18 @@ function startGame(user, profileData) {
         for (let i = 0; i < maxPredictions; i++) {
             if (prediction[i].className === questions[currentQuestionIndex].answer && prediction[i].probability > 0.865) {
                 correct = true;
-            } else {
             }
         }
 
         if (correct) {
-            let newMessage = "Correct!! Go to next question"
-            let skipButton = document.getElementById("skipButton")
+            let newMessage = "Correct!! Go to next question";
+            let skipButton = document.getElementById("skipButton");
             let characterTextElement = document.getElementById('character-text');
             skipButton.classList.add("makeDisapear");
             characterTextElement.innerHTML = "";
             characterTextElement.style.color = "green";
             typeEffect(characterTextElement, newMessage, 50);
-            
+
             score += 1;
             document.getElementById("modalScore").textContent = score;
             document.getElementById("modalScoreEachQues").textContent = score;
@@ -179,26 +165,21 @@ function startGame(user, profileData) {
         }
     }
 
-
     function skipQuestion() {
-        if(document.getElementById('character-text').innerHTML == "Correct!! Go to next question"){
+        if (document.getElementById('character-text').innerHTML == "Correct!! Go to next question") {
             showQuestion();
-        }
-        else{
+        } else {
             currentQuestionIndex += 1;
             showQuestion();
         }
-        
     }
-
 
     function showFinalScore() {
         const finalScore = score;
         alert(`Your Final Score: ${finalScore}`);
         window.location.href = 'scoreCardHuntGame.html';
     }
-    
-        
+
     // Expose skipQuestion to global scope
     window.skipQuestion = skipQuestion;
 
@@ -208,60 +189,58 @@ function startGame(user, profileData) {
         document.getElementById("skipButton").style.display = "none";
         document.getElementById("please-wait").style.display = "block"; // Show please wait message
         saveScore(user.uid, profileData.name, score);
-        showFinalScore();
+        showFinalScore()
     }
-    // modal
+
+    // Modal
     function showModal() {
         $('#myModal').modal('show');
     }
+
     function showModalCurrScore() {
         $('#currentScoreModal').modal('show');
     }
 
-
-    function saveScore(uid, name, newScore) {
+    async function saveScore(uid, name, newScore) {
         const scoresRef = firestore.collection('HuntGame').doc(uid);
 
-        scoresRef.get()
-            .then(doc => {
-                if (doc.exists) {
-                    const previousScore = doc.data().score;
-                    if (newScore > previousScore) {
-                        updateScore(scoresRef, uid, name, newScore);
-                    } else {
-                        console.log("New score is not higher than the previous score. No update made.");
-                        // showModal();
-                        // window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
-                    }
+        try {
+            const doc = await scoresRef.get();
+            if (doc.exists) {
+                const previousScore = doc.data().score;
+                if (newScore > previousScore) {
+                    await updateScore(scoresRef, uid, name, newScore);
                 } else {
-                    updateScore(scoresRef, uid, name, newScore);
+                    console.log("New score is not higher than the previous score. No update made.");
                 }
-            })
-            .catch(error => {
-                console.error("Error getting document:", error);
-                document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
-                alert("Error saving score. Please try again.");
-            });
+            } else {
+                await updateScore(scoresRef, uid, name, newScore);
+            }
+        } catch (error) {
+            console.error("Error getting document:", error);
+            document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
+            alert("Error saving score. Please try again.");
+        }
     }
 
-    document.getElementById("scoreCardPage").addEventListener('click',()=>{
-        window.location.href = 'scoreCardHuntGame.html';
-    })
-
-    function updateScore(scoresRef, uid, name, score) {
-        scoresRef.set({
-            uid: uid,
-            name: name,
-            score: score,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(() => {
+    async function updateScore(scoresRef, uid, name, score) {
+        try {
+            await scoresRef.set({
+                uid: uid,
+                name: name,
+                score: score,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
             console.log("Score saved successfully!");
-            window.location.href = 'scoreCardHuntGame.html'; // Redirect to scoreCard page
-        }).catch(error => {
+            showFinalScore(); // Call showFinalScore after score is saved
+        } catch (error) {
             console.error("Error saving score:", error);
             document.getElementById("please-wait").style.display = "none"; // Hide please wait message on error
             alert("Error saving score. Please try again.");
-        });
+        }
     }
-}
 
+    document.getElementById("scoreCardPage").addEventListener('click', () => {
+        window.location.href = 'scoreCardHuntGame.html';
+    });
+}
