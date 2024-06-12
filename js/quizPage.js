@@ -86,7 +86,7 @@ function startGame(user, profileData) {
         let loadingCircle = document.getElementById("loadingCircle");
         let cameraButton = document.getElementById("camButton");
         let skipButton = document.getElementById("skipButton");
-        let scoreDiv = document.getElementById('score-container');
+        let scoreDiv = document.getElementById('scoreHeader');
         let textBox = document.getElementById('character-message');
         cameraButton.classList.add("makeDisapear");
         loadingCircle.classList.remove("makeDisapear");
@@ -106,7 +106,7 @@ function startGame(user, profileData) {
         await webcam.play();
         if (webcam.play()) {
             loadingCircle.classList.add("makeDisapear");
-            // scoreDiv.classList.remove("makeDisapear");
+            scoreDiv.classList.remove("makeDisapear");
             skipButton.querySelector('button').classList.remove("makeDisapear");
         }
         window.requestAnimationFrame(loop);
@@ -134,6 +134,7 @@ function startGame(user, profileData) {
             typeEffect(characterTextElement, fullMessage, 10);
         } else if (currentQuestionIndex >= questions.length) {
             stopGame();
+            
         }
     }
 
@@ -190,6 +191,7 @@ function startGame(user, profileData) {
         document.getElementById("skipButton").style.display = "none";
         document.getElementById("please-wait").style.display = "block"; // Show please wait message
         saveScore(user.uid, profileData.name, score);
+        // showFinalScore();
     }
 
     // Modal
