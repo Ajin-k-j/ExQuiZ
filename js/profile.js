@@ -48,10 +48,11 @@ function fetchUserProfile() {
 function displayProfile(profileData) {
     const profileInfoDiv = document.getElementById('profile-info');
     profileInfoDiv.innerHTML = `
+        <img src="${profileData.photoURL}" alt="Profile Photo" class="img-fluid">
         <p><strong>Name:</strong> ${profileData.name}</p>
         <p><strong>Username:</strong> ${profileData.username}</p>
         <p><strong>Phone:</strong> ${profileData.phone ? profileData.phone : 'Not provided'}</p>
-        <img src="${profileData.photoURL}" alt="Profile Photo" class="img-fluid">
+        
     `;
 }
 
