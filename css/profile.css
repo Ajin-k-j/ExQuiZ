@@ -1,9 +1,19 @@
 /* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+:root {
+    --primary-color: #dc143c;
+    --secondary-color: #f0b3bf;
+    --tertiary-color: #dc143c;
+  }
+  body,
+  html {
+    height: 100%;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(
+      180deg,
+      var(--primary-color) 0%,
+      var(--secondary-color) 100%,
+      var(--tertiary-color) 90%
+  )}
 
 .container {
     max-width: 960px;

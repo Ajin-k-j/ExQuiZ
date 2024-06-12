@@ -14,7 +14,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 10px;">
         <div class="container">
-            <a class="navbar-brand" href="#">ExQuiZ</a>
+            <a class="navbar-brand" href="index.html">ExQuiZ</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,22 +22,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Scavenger Hunt</a>
+                        <a class="nav-link" href="scavenger_hunt.html">Scavenger Hunt</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quiz Challenge</a>
+                        <a class="nav-link" href="quizPage.html">Quiz Challenge</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="leaderBoard.html">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="" id="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -54,12 +51,13 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title text-center">User Profile</h2>
-                        <div class="text-center mt-4">
-                            <button id="edit-profile-btn" class="btn btn-primary mr-3">Edit Profile</button>
-                            <button id="share-profile-btn" class="btn btn-secondary">Share Profile</button>
-                        </div>
+                        <h2 class="card-title text-center" style=" text-shadow: 2px 2px 4px rgb(71, 69, 69); ">Profile</h2>
+                        
                         <div id="profile-info"></div>
+                        <div class="text-center mt-4">
+                            <button id="edit-profile-btn" class="btn btn-primary mr-3" style=" text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); ">Edit Profile</button>
+                            <button id="share-profile-btn" class="btn btn-secondary" style=" text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); ">Share Profile</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,6 +103,7 @@
             }
         });
     </script>
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>
